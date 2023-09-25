@@ -29,3 +29,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     sendResponse();
 });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.author == true) {
+      author = message.authorID;
+      console.log("article has an author");
+      console.log("The author is", author);
+
+      chrome.runtime.sendMessage({ authorSuccess: true, authorID: author }); //Send to popup.js
+
+    } if (message.author == false) {
+      chrome.runtime.sendMessage({ authorSuccess: false, author: "Not Found" });
+      console.log("tab has no header");
+    }
+    sendResponse();
+});

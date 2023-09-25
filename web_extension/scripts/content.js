@@ -5,6 +5,7 @@ console.log("content script running");
 try { 
     const article = document.querySelector("article");
     const h1 = document.querySelector("h1");
+    const authorElement = document.querySelector('[data-testid="authorName"]'); // For medium articles
 
     if (article) {
         console.log(article);
@@ -28,9 +29,7 @@ try {
 
     if (h1) {
         console.log(h1);
-        const title = h1.textContent;
-        const wordMatchRegExp = /[^\s]+/g; 
-        const words = title.matchAll(wordMatchRegExp);
+        const title = h1.textContent; 
 
         chrome.runtime.sendMessage({header: true, title: title});
     } else {
@@ -39,9 +38,22 @@ try {
 
         chrome.runtime.sendMessage({header: false});
     }
+    if (authorElement) {
+        // You've found the element
+        const author = authorElement.textContent;
+
+        chrome.runtime.sendMessage({author: true, authorID: author});
+    } else {
+        // Element not found
+        console.log("Element with data-testid 'authorName' not found.");
+        chrome.runtime.sendMessage({author: false});
+    }
+
     } catch (error) {
         console.log("Error:", error);
     }
+
+    
 };
 
 

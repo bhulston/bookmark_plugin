@@ -35,7 +35,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const key = "AIzaSyBmSKHmSYhdEB2usaHT0zFFzXosu4J2Y0k";
         let url1 = "https://www.googleapis.com/youtube/v3/videos?id=" + videoID + "&key=" + key +"&part=snippet,contentDetails";
         
-        //Execute scripts
+        //Execute scripts and hit Google API
         const data = fetch(url1).then(function(response) {
             console.log("response =", response);
             if (!response.ok) {
@@ -59,8 +59,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     //Act when content script reads relevant info
     if ( message.readSuccess == true ) {
-      elmInfo3.innerText = "Reading Time:"
-      elmInfo4.innerText = "Page Author:"
     //   wordCount = message.wordCount;
       const readingTime = message.readingTime;
       elmValue3.value = `${readingTime} minutes`;
@@ -68,8 +66,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       console.log("article info extracted");
 
     } if ( message.readSuccess = false ) {
-      elmInfo3.innerText = "Reading Time:"
-      elmInfo4.innerText = "Page Author:"
 
     //   wordCount = message.wordCount;
       const readingTime = message.readingTime;
@@ -87,6 +83,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     } if ( message.headSuccess = false ) {
       elmTitle.value = message.title;
+    }
+    sendResponse();
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    //Act when content script reads relevant info
+    if ( message.authorSuccess ) {
+      console.log("author:", message.authorSuccess, message.authorID);
+      elmValue4.value = message.authorID;
     }
     sendResponse();
 });
