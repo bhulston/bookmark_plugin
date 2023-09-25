@@ -1,7 +1,4 @@
-import {
-	blackListedDomains,
-	youtubeDomains,
-} from './config'
+
 
 function ISO8601DurationToSeconds (duration) {
 	let seconds = duration.match(/(\d*)S/)
@@ -13,59 +10,61 @@ function ISO8601DurationToSeconds (duration) {
 	let hours = duration.match(/(\d*)H/)
 	hours = parseInt(hours ? (parseInt(hours[1], 10) ? hours[1] : 0) : 0, 10)
 
-	let totalSeconds =
-		(hours * 60 * 60) +
-		(minutes * 60) +
-		seconds
-
-	return totalSeconds
+    if (hours > 0) {
+        return `${hours}:${minutes}:${seconds}`
+    } else {
+        return `${minutes}:${seconds}`
+    }
+	     
 }
 
-function contentWarning (data) {
-	return data &&
-			data.contentDetails.contentRating &&
-			data.contentDetails.contentRating.ytRating &&
-			data.contentDetails.contentRating.ytRating === 'ytAgeRestricted'
-}
+const injectContentScript = (tab) => {
+const { id, url } = tab;
+chrome.scripting.executeScript({
+    target: { tabId: id, allFrames: true },
+    files: ['./scripts/content.js']
+});
+console.log(`Loading: ${url}`);
+};
 
-// Check if the users country is allowed to view the video
-function regionAllowed (countryCode, contentDetails) {
-	// Implicitly allowed
-	if (!countryCode || !contentDetails.regionRestriction) {
-		return true
-	}
+const getVideoID = (url) => {
+    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match && match[2].length == 11) {
+        console.log("VideoID extracted...")
+        return match[2];
+    } else {
+        console.log("No videoID was found...");
+        return "Error";
+    }
+};
 
-	const regionRestriction = contentDetails.regionRestriction
+const handleSuccess = (data, elmTitle, elmDuration, elmVideo) => {
+    if (data.items.length > 0) {
+      console.log("output:", data.items[0]); // contentDetails.duration //snippet.title //snippet.channelTitle //snippet.description
+    //   console.log("Video query output:", output);
+      const duration = data.items[0].contentDetails.duration; //Must be ISO parsed
+      const title = data.items[0].snippet.title;
+      const channel = data.items[0].snippet.channelTitle;
+      const description = data.items[0].snippet.description;   
 
-	// Explicitly allowed
-	if (regionRestriction.allowed && regionRestriction.allowed.includes(countryCode)) {
-		return true
-	}
+      console.log(duration);
+      elmTitle.value = title;
+      elmVideo.value = channel;
+      elmDuration.value = ISO8601DurationToSeconds(duration);
+    }
+  };
 
-	// Explicitly blocked
-	if (regionRestriction.blocked && regionRestriction.blocked.includes(countryCode)) {
-		return false
-	}
+const checkURL = (url) => {
+    const pattern = /youtube/i;
 
-	// Implicitly allowed
-	return true
-}
+    if (pattern.test(url)) {
+        return "youtube";
+        console.log("The URL is from YouTube.com");
+    } else {
+        return "article";
+        console.log("The URL is not from YouTube.com");
+    }
+};
 
-const blackListedDomainsRegex = new RegExp(`^(www.)?(${blackListedDomains.join('|')})$`)
-function isDomainBlacklisted (hostname) {
-	return blackListedDomainsRegex.test(hostname)
-}
-
-const youtubeDomainRegex = new RegExp(`^(www.)?(${youtubeDomains.join('|')})$`)
-function isYoutubeDomain (hostname) {
-	return youtubeDomainRegex.test(hostname)
-}
-
-export {
-	contentWarning,
-	isDomainBlacklisted,
-	ISO8601DurationToSeconds,
-	isYoutubeDomain,
-	prettyPrintSeconds,
-	regionAllowed,
-}
+export { ISO8601DurationToSeconds, injectContentScript, getVideoID, handleSuccess, checkURL } ;

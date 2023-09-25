@@ -1,30 +1,52 @@
-<html>
 
-<head>testtest
-  <style type="text/css">
-    * {
-      font-size: x-large;
-    }
-  </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Extension Popup</title>
+    <style>
+        /* Styles for the popup container */
+        .popup-container {
+            background-color: #4d3ca6;
+            width: 450px;
+            padding: 30px;
+            -webkit-text-fill-color: #dcddde;
+        }
+
+        .header {
+          -webkit-text-fill-color: #7f6df2;
+        }
+
+        /* Styles for the popup box */
+        .popup-box {
+            background-color: #333;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        /* Styles for editable inputs */
+        input[type="text"] {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            margin: 5px;
+            padding: 5px;
+            width: 88%;
+            -webkit-text-fill-color: #1a1a1a;
+        }
+    </style>
+    <script type = "module" src="../scripts/popup.js"></script>
 </head>
+<body>
+    <div class="popup-container">
+        <div class="popup-box">
+            <h2 class = "header">Bookmark Info</h2>
+            <p><strong>URL:</strong> <span id = "url"> Not found </span></p>
+            <p><strong>Page Title:</strong> <input type="text" id = "title" value="Not found"></p>
 
-<body style="min-width:300px;min-height:100px;">
-  <span id="url">Url: Loading...</span>
-
-  <span id="count">Word Count: Loading...</span>
-
-  <span id="read">Read Time: Loading...</span>
-
-  <span id="video">Watch Time: Loading...</span>
-
-  <script src="../scripts/popup.js"></script>
+            <p><strong id = "info3">Value:</strong> <input type = "text" id = "value3" value = "Not found"> </p>
+            <p><strong id = "info4">Value:</strong> <input type = "text" id = "value4" value =  "Not found"> </p>
+        </div>
+    </div>
 </body>
-
-<bodyb style="min-width:300px;min-height:100px">
-  <input id="tags">Tags:</input>
-
-  <input type="checkbox" id="create">Create new note?</input>
-</bodyb>
-
 </html>
-
