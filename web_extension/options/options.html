@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | Obsidian Web Search</title>
+    <link rel="stylesheet" href="./options.css" />
+</head>
+
+<body class="dark">
+    <header>
+        <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
+            <div class="container flex flex-wrap justify-between items-center mx-auto">
+                <a href="#" class="flex items-center">
+                    <img src="../assets/obsidian48.png" class="mr-3 h-6 sm:h-9" alt="" />
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Web
+                        Search</span>
+                </a>
+                <button data-collapse-toggle="navbar-default" type="button"
+                    class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-default" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <img class="w-6 h-6" aria-hidden="true" src="../assets/obsidian48.png" />
+                </button>
+                <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                    <ul
+                        class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <li>
+                            <a href="#about"
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                        </li>
+                        <li>
+                            <a href="#core-settings"
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Core
+                                Settings</a>
+                        </li>
+                        <li>
+                            <a href="#display-settings"
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Display
+                                Settings</a>
+                        </li>
+                        <li>
+                            <a href="#contact"
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex justify-center dark:bg-gray-900 py-20 px-4">
+        <div class="max-w-2xl dark:text-white text-base">
+            <h1 id="about"
+                class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                Obsidian Digital Bookmarks
+            </h1>
+
+            <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
+                Setup Your Bookmark Settings
+            </h2>
+            <p>
+                If you have been looking for a better alternative to Chrome bookmarks to keep track of your articles and videos, you've come to the right place!
+                This requires Obsidian to be used (maybe I will add more integrations in the future!). 
+
+                I've tried to make this extension functional and customizable so that you can organize your notes as you like. There is a default included though.
+
+                Note: this requires the Obsidian Local REST API to work (as that is how we create new notes in your vault!). So make sure that is working as well.
+            </p>
+            <h3 class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
+                Features
+            </h3>
+            <ul class="space-y-1 max-w-lg list-inside text-gray-500 dark:text-gray-400">
+                <li class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
+                </li>
+                <li class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    URL MATCHING: Search your vault for matches of your current url
+                </li>
+                <li class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Scroll and open your matched Obsidian notes in the sidebar
+                </li>
+                <li class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Exclude files and folders you don't want to show show up in the sidebar search
+                </li>
+                <li class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Customize how much context you want to see
+                </li>
+            </ul>
+            <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
+                Privacy
+            </h3>
+            <p class="mb-6">
+                This extension just communicates between your local Obsidian REST Api
+                and the browser. The only data that is stored permanently in the
+                browser are the settings you find below. 
+            </p>
+
+            <form id="settings" name="settings">
+                <fieldset>
+                    <h2 id="core-settings">
+                        <legend class="text-4xl mb-6 font-extrabold dark:text-white">
+                            Settings
+                        </legend>
+                    </h2>
+
+                    <div class="my-3 p-3 border border-gray rounded-lg">
+                        <span id="apiKeyCheck"></span>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="apiKey" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Your Obsidian REST Api Key</label>
+                        <input type="text" id="apiKey" name="apiKey"
+                            placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
+                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                            required />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="vault" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Obsidian Vault Name</label>
+                        <input type="text" id="vault" name="vault" placeholder="MyAwesomeSecondBrain"
+                            class="inline shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                            required />
+                        <a id="openVault" href=""
+                            class="w-1/4 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                            Open Vault</a>
+                    </div>
+
+                    <div class=" mb-6">
+                        <label for="protocol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                            Select Protocol
+                        </label>
+                        <select id="protocol" name="protocol" required=""
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected="" value="https://127.0.0.1:27124">HTTPS Port 27124</option>
+                            <option value="http://127.0.0.1:27123">HTTP Port 27123 (insecure)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="customPort" class="inline-flex relative items-center mr-5 cursor-pointer">
+                            <input type="checkbox" value="" id="customPort" name="customPort" class="sr-only peer"
+                                checked="" />
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Use custom port
+                            </span>
+                        </label>
+                    </div>
+
+                    <div id="port-container" class="mb-6 hidden">
+                        <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Custom port number
+                        </label>
+                        <input type="number" id="port" name="port" value="27123"
+                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                    </div>
+                </fieldset>
+
+                <button type="submit"
+                    class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    Save Settings
+                </button>
+
+                <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="status"></span>
+            </form>
+
+            <div class="my-12 text-gray-900 dark:text-white">
+                <h2 id="contact" class="text-4xl mb-6 font-extrabold dark:text-white">
+                    Contact
+                </h2>
+                <p>
+                    My name is Brandon Hulston! Great to meet you:)
+                    \n This is an open source plugin and you can find the code in <a href="https://github.com/bhulston/bookmark_plugin">GitHub</a>
+                </p>
+
+                <h3 class="my-4 text-xl font-semibold text-gray-900 dark:text-white">
+                    Credits
+                </h3>
+                <p>
+                    Thank's to the creator of the
+                    <a href="https://github.com/coddingtonbear/obsidian-local-rest-api">Obsidian Local REST Api
+                        Plugin</a>
+                    <a href="https://github.com/coddingtonbear">@Adam Coddington</a> for
+                    his awesome work. His effort rendered this extension possible.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022
+            <a href="https://jkoster.com/" class="hover:underline">Jakob Osterberger</a>. All Rights Reserved.
+        </span>
+        <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+            <li>
+                <a href="#about" class="mr-4 hover:underline md:mr-6 ">About</a>
+            </li>
+            <li>
+                <a href="#privacy" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+            </li>
+            <li>
+                <a href="githublicense" class="mr-4 hover:underline md:mr-6">Licensing</a>
+            </li>
+            <li>
+                <a href="#contact" class="hover:underline">Contact</a>
+            </li>
+        </ul>
+    </footer>
+    <script src="options.js" type="module"></script>
+</body>
+
+</html>
