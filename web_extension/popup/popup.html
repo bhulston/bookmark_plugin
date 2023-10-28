@@ -4,98 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chrome Extension Popup</title>
-    <style>
-        /* Styles for the popup container */
-        .popup-container {
-            background-color: #4d3ca6;
-            width: 450px;
-            padding: 30px;
-            -webkit-text-fill-color: #dcddde;
-            position: relative;
-        }
-
-        .header {
-          -webkit-text-fill-color: #7f6df2;
-        }
-
-        /* Styles for the popup box */
-        .popup-box {
-            background-color: #242766;
-            border-radius: 10px;
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            position: relative; /* Add position relative to create a positioning context */
-        }
-
-        /* Styles for editable inputs */
-        input[type="text"] {
-            border: none;
-            border-bottom: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 5px;
-            padding: 5px;
-            width: 88%;
-            -webkit-text-fill-color: #1a1a1a;
-        }
-
-        /* Position the icon in the top-right corner of the popup box */
-        .icon-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 10px;
-        }
-
-        .folder-popup {
-          background-color: #fff;
-          border: 1px solid #ccc;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 250px; /* Adjust the width as needed */
-          height: 100%; /* Make it cover the entire height of the viewport */
-          z-index: 9999; /* Ensure it's above other elements */
-          display: none; /* Initially hidden */
-        }
-
-        .folder {
-            padding-left: 20px;
-            cursor: pointer;
-            -webkit-text-fill-color: #1a1a1a;
-        }
-
-        .file {
-            padding-left: 20px;
-            -webkit-text-fill-color: #7f6df2;
-        }
-
-        /* Define styles for expand and collapse icons */
-        .expand-icon::before {
-            content: '\25B8'; /* Right-pointing triangle */
-            padding-right: 5px;
-        }
-
-        .collapse-icon::before {
-            content: '\25BE'; /* Down-pointing triangle */
-            padding-right: 5px;
-        }
-
-        /* Define the hidden class to hide elements by default */
-        .hidden {
-            display: none;
-        }
-
-        #openFolderButton {
-          -webkit-text-fill-color: black;
-        }
-
-        #runScriptButton {
-          -webkit-text-fill-color: black;
-        }
-    </style>
     <script type="module" src="../scripts/popup.js"></script>
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
     <div class="popup-container">
@@ -112,10 +22,11 @@
 
             <button id="runScriptButton">Run Script</button>
             <button id="openFolderButton">Select Bookmark Location</button>
+            <button id="sendButton">Save to Obsidian</button>
         </div>
         <div id="folderPopup" class="folder-popup">
             <div id="folder-structure"></div>
-            <script src="../scripts/directory.js"></script>
+            <!-- <script src="../scripts/directory.js"></script> -->
         </div>
 
     </div>

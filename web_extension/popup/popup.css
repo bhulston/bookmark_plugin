@@ -1,0 +1,108 @@
+
+/* Styles for the popup container */
+.popup-container {
+    background-color: #4d3ca6;
+    width: 450px;
+    padding: 30px;
+    -webkit-text-fill-color: #dcddde;
+    position: relative;
+}
+
+.header {
+    -webkit-text-fill-color: #7f6df2;
+}
+
+/* Styles for the popup box */
+.popup-box {
+    background-color: #242766;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative; /* Add position relative to create a positioning context */
+}
+
+/* Styles for editable inputs */
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: 88%;
+    -webkit-text-fill-color: #1a1a1a;
+}
+
+/* Position the icon in the top-right corner of the popup box */
+.icon-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.folder-popup {
+    background-color: #fff;
+    -webkit-text-fill-color: #1a1a1a;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px; /* Adjust the width as needed */
+    height: 100%; /* Make it cover the entire height of the viewport */
+    z-index: 9999; /* Ensure it's above other elements */
+    display: none; /* Initially hidden */
+}
+
+.folder {
+    padding-left: 20px;
+    cursor: pointer;
+    -webkit-text-fill-color: #1a1a1a;
+}
+
+.file {
+    padding-left: 20px;
+    -webkit-text-fill-color: #7f6df2;
+}
+
+/* Define styles for expand and collapse icons */
+.expand-icon::before {
+    content: '\25B8'; /* Right-pointing triangle */
+    padding-right: 5px;
+}
+
+.collapse-icon::before {
+    content: '\25BE'; /* Down-pointing triangle */
+    padding-right: 5px;
+}
+
+/* Define the hidden class to hide elements by default */
+.hidden {
+    display: none;
+}
+
+#openFolderButton {
+    -webkit-text-fill-color: black;
+}
+
+#runScriptButton {
+    -webkit-text-fill-color: black;
+}
+
+
+dl {
+margin: 0;
+padding: 0;
+}
+
+dt {
+position: relative;
+margin-left: 20px;
+}
+
+dt::before {
+content: "•";
+position: absolute;
+left: -10px;
+}

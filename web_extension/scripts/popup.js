@@ -1,20 +1,59 @@
-import { getObsidian } from '../obsidian/o_utils.js';
+import { postObsidian, getDir } from '../obsidian/o_utils.js';
+import { write_doc } from '../obsidian/template.js';
 import { injectContentScript, getVideoID, handleSuccess, checkURL, checkApiKey } from '../utils.js';
+import { createFolderStructure } from './directory.js';
+
+
 
 console.log("This is a popup!");
 //Popup script handles queries that do not interact with the base DOM of the webpage.
 //These are run on the ccurrent tab each time a popup window is opened
 
 // const check = await fetch(url + "/", options);
-const url = "https://127.0.0.1:27124/active/";
+const APIurl = "https://127.0.0.1:27124/vault/test.md";
 const key = "868beedb25e084c7daf918f437e39d237e4156d2d878c2ace37da31404d3b9ac";
+const root = 'https://127.0.0.1:27124/vault/';
 
-const check = await getObsidian(url, key, 'text');
-console.log("SCAREMAJFDSLJF", check);
+const folderData = {
+    //CHANGE this to put tester (and other root based files) as root files, instead of in 10 Personal which is where it goes now??
+    "files": [
+      "00 Meta/",
+      "10 Personal/",
+      "00 Meta/test",
+      "tester",
+      "10 Personal/IPhone Notes/",
+      "10 Personal/Daily Life/",
+      "10 Personal/Daily Life/YUHHH",
+      "10 Personal/Hallo",
+      "10 Personal/IPhone Notes/1",
+      "10 Personal/IPhone Notes/12/",
+      "10 Personal/IPhone Notes/12/Hey QT",
+      "10 Personal/IPhone Notes/2",
+      "10 Personal/IPhone Notes/12/Android",
+    ]
+  };
+//Fix the createFolderStructure from directory.js to properly make the structure
+const folderStructureContainer = document.getElementById('folder-structure');
+const element = createFolderStructure(folderData, folderStructureContainer);
+folderStructureContainer.innerHTML = element;
+
+//Actual queries to get the real folderData is below
+
+// const folderData = getDir(key);
+// getDir(key, root).then((folderData) => {
+//     console.log('Directory API response', folderData);
+//     const folderStructureContainer = document.getElementById('folder-structure');
+//     console.log('Directory test', folderStructureContainer);
+//     createFolderStructure(folderData, folderStructureContainer);
+// }).catch((error) => {
+//     console.log(error)
+// });
+
 
 //API WORKS! There seemed to be cert issues that were causing problems. so make sure it's added to keychain on mac (and windows equivalent?)
-
-
+//CHANGE this so that we can choose the specific bookmarks document we send to 
+    // This way I can have one for guitar, one for this etc. Maybe it's a 
+    //Reqs here are: 1. Send doc to a specific document appending if you like 2. Send to a bookmarks folder 3. Create the corresponding note if you want
 
 
 // Popup HTML elements
@@ -23,14 +62,34 @@ let elmTitle = document.getElementById("title");
 let elmInfo3 = document.getElementById("info3");
 let elmInfo4 = document.getElementById("info4");
 
-let elmValue3 = document.getElementById("value3");
-let elmValue4 = document.getElementById("value4");
+let elmDuration = document.getElementById("value3");
+let elmVideo = document.getElementById("value4");
+
+let url = "";
+
+const sendObsidian = document.getElementById("sendButton");
+
+sendObsidian.addEventListener('click', async function () {
+    // const check = checkApiKey("test", "key");
+    // Build our Obsidian Doc
+    const doc = write_doc(elmTitle.value, elmDuration.value, url, "this is a cool article!!!", false, "PUT");
+    const check = await postObsidian(APIurl, key, 'text', doc);
+    console.log("SCAREMAJFDSLJF", check);
+
+    console.log(check);
+    alert('Button Clicked! Your script can go here.', check);
+});
+
+//CHANGE so that we make it do a post by default, and do a put when box is marked
+    // So first we need to build a checkmark box for "create new notes doc"
+        // if not checked we just append it to the bookmarks folder you choose
+
 
 // Query GoogleAPI for Youtube video information and activate content script if not from youtube
     //runs on popup open
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     //Set URL
-    const url = tabs[0].url;
+    url = tabs[0].url;
     console.log("url=", url);
     console.log("tab=", tabs[0]);
 
@@ -53,7 +112,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             }
             return response.json(); // Assuming the response is in JSON format
         }).then(function(data){
-            handleSuccess(data, elmTitle, elmValue3, elmValue4)
+            handleSuccess(data, elmTitle, elmDuration, elmVideo)
         }).catch(function(error) {
             console.error('Error:', error);
         });
@@ -71,7 +130,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if ( message.readSuccess == true ) {
     //   wordCount = message.wordCount;
       const readingTime = message.readingTime;
-      elmValue3.value = `${readingTime} minutes`;
+      elmDuration.value = `${readingTime} minutes`;
 
       console.log("article info extracted");
 
@@ -79,7 +138,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     //   wordCount = message.wordCount;
       const readingTime = message.readingTime;
-      elmValue3.value = readingTime;
+      elmDuration.value = readingTime;
 
       console.log("info not extracted");
     }
@@ -101,7 +160,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     //Act when content script reads relevant info
     if ( message.authorSuccess ) {
       console.log("author:", message.authorSuccess, message.authorID);
-      elmValue4.value = message.authorID;
+      elmVideo.value = message.authorID;
     }
     sendResponse();
 });
@@ -119,6 +178,9 @@ runScriptButton.addEventListener('click', function () {
     console.log(check);
     alert('Button Clicked! Your script can go here.', check);
 });
+
+
+
 
 //Folder structure
 // Get references to the button and folder popup elements
