@@ -32,12 +32,14 @@ async function getObsidian(url, key, accept) {
     };
 };
 
-async function postObsidian(url, key, accept, body, option, optionURL) {
+async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
     // first check if it exists, if it does, we append with post, otherwise we do a put
     const get_response = getObsidian(url, key, accept);
     console.log('HORNY', get_response);
     /*
-    Where Method = PUT, and a file in Obsidian is to be created or modified in some way
+    Every bookmark send will always have a post and a put
+        The post is to append to the bookmarks tab
+        The put creates a corresponding file if requested
 
     ## Parameters ##
         url: The url we are using, this will be built in the popup script based on user preferences. This should be the inbox for the bookmark. (As an option, because we will allow multiple inboxes if one prefers)
@@ -52,33 +54,54 @@ async function postObsidian(url, key, accept, body, option, optionURL) {
        media = 'application/json';
    };
 
-   // if file does exist, append
+   // if post file exists, post to the bookmark file
+   let response1 = false;
    if (get_response) {
     const method = 'POST';
-        // Appends starting on a new line
+        try { 
+            const requestData = md;
+            const response = await fetch(url, {
+            method: method,
+            headers: {
+                'accept': media,
+                'Authorization': 'Bearer ' + key},
+            body: requestData
+            });
+            
+            console.log("API Check", response);
+            response1 = true;
+        } catch (e) {
+            console.log('ERROR', e);
+            response1 = false;
+        };
    } else {
-    const method = 'PUT';
+    response1 = false;
    }
 
-   const method = 'PUT';
-
-   // if file doesn't exist
-   try { 
-    const requestData = body;
-    const response = await fetch(url, {
-    method: method,
-    headers: {
-        'accept': media,
-        'Authorization': 'Bearer ' + key},
-    body: requestData
-    });
-    
-    console.log("API Check", response);
-    return response;
-  } catch (e) {
-    console.log('ERROR', e);
-    return;
-  };
+   // if option is true, also create a new file that corresponds to the note in the requested folder
+   let response2 = false;
+   if (option) {
+    const method = 'PUT';
+        try {
+            const requestData = yaml;
+            const response = await fetch(optionURL, {
+            method: method,
+            headers: {
+                'accept': media,
+                'Authorization': 'Bearer ' + key},
+            body: requestData
+            });
+            
+            console.log("API Check", response);
+            response2 = true;
+        } catch (e) {
+            console.log('ERROR', e);
+            response2 = false;
+        }
+   } else {
+    response2 = false;
+   }
+   return (response1, response2);   
 };
 
 

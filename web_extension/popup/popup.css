@@ -2,25 +2,33 @@
 /* Styles for the popup container */
 .popup-container {
     background-color: #4d3ca6;
-    width: 450px;
-    padding: 30px;
+    width: 350px;
+    height: 450px;
+    padding: 20px;
+    padding-right: 4px;
+    padding-top: 15px;
     -webkit-text-fill-color: #dcddde;
     position: relative;
 }
 
 .header {
     -webkit-text-fill-color: #7f6df2;
+    bottom: 10px;
 }
 
 /* Styles for the popup box */
 .popup-box {
     background-color: #242766;
     border-radius: 10px;
-    text-align: left;
+    height: 90%;
+    width: 85%;
+    /* text-align: left; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     padding: 20px;
     position: relative; /* Add position relative to create a positioning context */
 }
+
+
 
 /* Styles for editable inputs */
 input[type="text"] {
@@ -106,3 +114,4 @@ content: "•";
 position: absolute;
 left: -10px;
 }
+

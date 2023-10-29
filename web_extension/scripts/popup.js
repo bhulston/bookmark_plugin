@@ -10,7 +10,6 @@ console.log("This is a popup!");
 //These are run on the ccurrent tab each time a popup window is opened
 
 // const check = await fetch(url + "/", options);
-const APIurl = "https://127.0.0.1:27124/vault/test.md";
 const key = "868beedb25e084c7daf918f437e39d237e4156d2d878c2ace37da31404d3b9ac";
 const root = 'https://127.0.0.1:27124/vault/';
 
@@ -24,7 +23,7 @@ const folderData = {
       "10 Personal/IPhone Notes/",
       "10 Personal/Daily Life/",
       "10 Personal/Daily Life/YUHHH",
-      "10 Personal/Hallo",
+      "10 Personal/Test.md",
       "10 Personal/IPhone Notes/1",
       "10 Personal/IPhone Notes/12/",
       "10 Personal/IPhone Notes/12/Hey QT",
@@ -49,13 +48,6 @@ folderStructureContainer.innerHTML = element;
 //     console.log(error)
 // });
 
-
-//API WORKS! There seemed to be cert issues that were causing problems. so make sure it's added to keychain on mac (and windows equivalent?)
-//CHANGE this so that we can choose the specific bookmarks document we send to 
-    // This way I can have one for guitar, one for this etc. Maybe it's a 
-    //Reqs here are: 1. Send doc to a specific document appending if you like 2. Send to a bookmarks folder 3. Create the corresponding note if you want
-
-
 // Popup HTML elements
 // let elmUrl = document.getElementById("url"); 
 let elmTitle = document.getElementById("title");
@@ -72,17 +64,21 @@ const sendObsidian = document.getElementById("sendButton");
 sendObsidian.addEventListener('click', async function () {
     // const check = checkApiKey("test", "key");
     // Build our Obsidian Doc
-    const doc = write_doc(elmTitle.value, elmDuration.value, url, "this is a cool article!!!", false, "PUT");
-    const check = await postObsidian(APIurl, key, 'text', doc);
+    const create = document.getElementById("openNote");
+    const md = write_doc(elmTitle.value, elmDuration.value, url, "this is a cool article!!!", false, "markdown");
+        // get just the markdown back
+    const yaml = write_doc(elmTitle.value, elmDuration.value, url, "this is a cool article!!!", false, "yaml");
+
+    const APIpath = document.getElementById("bookmarkValue").value;
+    const APIurl = "https://127.0.0.1:27124/vault/" + APIpath;
+    const optionURL = "https://127.0.0.1:27124/vault/test2.md"; //CHANGE this to get what we need based on user input
+    const check = await postObsidian(APIurl, key, 'text', md, create.checked, optionURL, yaml);
     console.log("SCAREMAJFDSLJF", check);
 
     console.log(check);
     alert('Button Clicked! Your script can go here.', check);
 });
 
-//CHANGE so that we make it do a post by default, and do a put when box is marked
-    // So first we need to build a checkmark box for "create new notes doc"
-        // if not checked we just append it to the bookmarks folder you choose
 
 
 // Query GoogleAPI for Youtube video information and activate content script if not from youtube
@@ -175,14 +171,15 @@ runScriptButton.addEventListener('click', function () {
 
     // const check = checkApiKey("test", "key");
     
-    console.log(check);
-    alert('Button Clicked! Your script can go here.', check);
+    // console.log(check);
+    // alert('Button Clicked! Your script can go here.', check);
 });
 
 
 
 
-//Folder structure
+//Folder structure section
+
 // Get references to the button and folder popup elements
 const openFolderButton = document.getElementById('openFolderButton');
 const folderPopup = document.getElementById('folderPopup');
@@ -202,10 +199,37 @@ function closeFolderPopup() {
 // Add a click event listener to the button
 openFolderButton.addEventListener('click', openFolderPopup);
 
-// You can also add a close button or other logic to close the popup when needed
-// For example, to close the popup when clicking outside of it:
+// Close the popup when clicking outside of it:
 document.addEventListener('click', (event) => {
     if (!folderPopup.contains(event.target) && event.target !== openFolderButton) {
+        closeFolderPopup();
+    }
+});
+
+document.addEventListener("click", function(event) {
+    // Check if the clicked element is a folder
+    if (event.target.classList.contains('folder')) {
+        console.log("folder clicked", event.target);
+        const folder = event.target.closest('.folder');
+        const childDl = folder.querySelector('dl');
+        
+        if (childDl.classList.contains('hidden')) {
+            childDl.classList.remove('hidden');
+            folder.querySelector('.expand-icon').classList.add('collapse-icon');
+            folder.querySelector('.expand-icon').classList.remove('expand-icon');
+        } else {
+            childDl.classList.add('hidden');
+            folder.querySelector('.collapse-icon').classList.add('expand-icon');
+            folder.querySelector('.collapse-icon').classList.remove('collapse-icon');
+        }
+    }
+
+    // Check if the clicked element is a file
+    if (event.target.classList.contains('file')) {
+        // Handle file click
+        console.log("file clicked", event.target);
+        const saveFile = document.getElementById('bookmarkValue');
+        saveFile.value = event.target.getAttribute('data-fullPath');
         closeFolderPopup();
     }
 });

@@ -1,5 +1,5 @@
 function createFolderStructure(data, parentElement) {
-    // Sort
+    // Sort the files
     data.files.sort((a, b) => {
         // Split the strings into arrays to compare individual parts
         const partsA = a.split('/');
@@ -85,8 +85,9 @@ function buildFromRoot(rootFolder, contents) {
         }
         currentMap = currentMap.get(part);
       });
+      currentMap.fullPath = path;
     });
-    return `<dl>\n<dt>${rootFolder}\n  <dl>\n${generateHtml(folderMap, 2)}  </dl>\n</dt>\n</dl>`;
+    return `<dl>\n<dt class="folder">${rootFolder}\n  <dl>\n${generateHtml(folderMap, 2)}  </dl>\n</dt>\n</dl>`;
   };
 
 function generateHtml(map, level = 0) {
@@ -95,88 +96,19 @@ function generateHtml(map, level = 0) {
     let html = "";
 
     for (const [key, value] of map.entries()) {
-      if (value.size === 0) {
-        html += `${indent}<dt>${key}</dt>\n`;
-      } else {
-        html += `${indent}<dt>${key}/\n`;
-        html += `${indent}  <dl>\n`;
-        html += generateHtml(value, level + 2);
-        html += `${indent}  </dl>\n`;
-        html += `${indent}</dt>\n`;
-      }
+        let fullPath = value.fullPath;
+        if (value.size === 0) {
+            html += `${indent}<dt class="file" data-fullpath="${fullPath}">${key}</dt>\n`; 
+        } else {
+            html += `${indent}<dt class="folder" data-fullpath="${fullPath}">${key}/\n`;
+            html += `${indent}  <dl class="hidden">\n`;
+            html += generateHtml(value, level + 2);
+            html += `${indent}  </dl>\n`;
+            html += `${indent}</dt>\n`;
+        }
     };
 
     return html;
 };
 
 export { createFolderStructure };
-
-// function createFolderStructure(data, parentElement) {
-    
-//     const processedFolders = new Set();
-//     data.files.forEach(item => {
-//         const parts = item.split('/');
-//         const root = parts[0];
-//         const end = parts[parts.length - 1];
-//         const isFolder = item.charAt(item.length - 1) === '/';
-//         let file;
-
-//         if (end === "") {
-//             file = parts[parts.length - 2];
-//         } else {
-//             file = end;
-//         }
-
-//         if (file !== "") {  // Check if file is empty
-//             const li = document.createElement('li');
-//             if (isFolder) {
-//                 if (!processedFolders.has(root)) {
-//                     processedFolders.add(root);
-
-//                     const folderName = document.createElement('span');
-//                     folderName.classList.add('folder', 'expand-icon');
-//                     folderName.textContent = file;
-//                     folderName.addEventListener('click', () => {
-//                         const childUl = li.querySelector('ul');
-//                         if (childUl) {
-//                             if (childUl.style.display === "none") {
-//                                 childUl.style.display = "block";
-//                             } else {
-//                                 childUl.style.display = "none";
-//                             }
-//                         }
-//                         folderName.classList.toggle('collapse-icon');
-//                     });
-//                     li.appendChild(folderName);
-
-//                     const subFolderData = {
-//                         files: data.files.filter(subItem => subItem !== item && subItem.startsWith(root + '/'))
-//                     };
-//                     console.log("Sub folder data looks like", subFolderData);
-
-//                     if (subFolderData.files.length > 0) {
-//                         createFolderStructure(subFolderData, li);
-//                     }
-//                 }
-                
-//             } else {
-//                 if (!processedFolders.has(root)) {
-//                     const fileName = document.createElement('span');
-//                     fileName.classList.add('file');
-//                     fileName.textContent = file;
-//                     li.appendChild(fileName);
-//                 }
-//             }
-//             ul.appendChild(li); // Append only if file is not empty
-//         }
-//     });
-
-//     if (ul.childNodes.length > 0) {  // Check if ul has any child nodes
-//         parentElement.appendChild(ul);
-//     }
-// };
-
-
-// // const folderStructureContainer = document.getElementById('folder-structure');
-// // createFolderStructure(folderData, folderStructureContainer);
-

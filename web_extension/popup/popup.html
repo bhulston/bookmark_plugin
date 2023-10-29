@@ -19,10 +19,18 @@
 
             <p><strong id="info3">Reading Time:</strong> <input type="text" id="value3" value="Not found"> </p>
             <p><strong id="info4">Page Author:</strong> <input type="text" id="value4" value="Not found"> </p>
+            <p><strong id="info5">Bookmark Location:</strong> <input type="text" id ="bookmarkValue" value="Not Selected"></p>
 
             <button id="runScriptButton">Run Script</button>
             <button id="openFolderButton">Select Bookmark Location</button>
             <button id="sendButton">Save to Obsidian</button>
+
+            <div>
+                <input id="openNote" type="checkbox" style="float: left; margin-top: 5px; position: relative; top: 0.5px; z-index: 999;">
+                <div style=" position: relative; left: 6px; top: 5px;">
+                    Create New Note?
+                </div>
+            </div>
         </div>
         <div id="folderPopup" class="folder-popup">
             <div id="folder-structure"></div>
