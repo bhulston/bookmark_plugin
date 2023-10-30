@@ -15,6 +15,25 @@ function createFolderStructure(data, parentElement) {
         // If one path is a prefix of the other, the shorter one comes first
         return partsA.length - partsB.length;
     });
+
+    // Take out any root files (that are not in another folder)
+    let rootFiles = [];
+    let otherFiles = [];
+
+    otherFiles = data.files.filter((path) => {
+        if (path.includes('/')) {
+            return true;
+        } else {
+            rootFiles.push(path);
+            return false;
+        }
+    });
+
+    data.files = otherFiles;
+
+// Now, filesWithoutSlash contains the files that have no '/' in their names
+// and data.files contains the files that do have a '/'.
+
       
     console.log("Here is the files sorted:, ", data.files);
 
@@ -38,11 +57,23 @@ function createFolderStructure(data, parentElement) {
               }
         };
      
-      console.log(finalElement);
+      console.log("before rootFiles html:", finalElement);
+      const rootFileHTML = buildRootFiles(rootFiles);
+      finalElement += rootFileHTML;
+      console.log("Final HTML:", finalElement);
+      
       return finalElement;
     // Now we return the element to be added to our html later
     
 };
+
+function buildRootFiles(data) {
+    let html = ""
+    data.forEach(file => {
+        html += `<dl>\n<dt class="file" data-fullpath="${file}">${file}\n</dt>\n</dl>\n`
+    })
+    return html;
+}
 
 function buildSubFolders(data) {
     // Initialize an empty object to store the root folders and their contents

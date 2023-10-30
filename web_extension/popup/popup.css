@@ -107,6 +107,7 @@ padding: 0;
 dt {
 position: relative;
 margin-left: 20px;
+cursor: pointer;
 }
 
 dt::before {
