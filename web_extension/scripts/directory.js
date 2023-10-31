@@ -118,7 +118,7 @@ function buildFromRoot(rootFolder, contents) {
       });
       currentMap.fullPath = path;
     });
-    return `<dl>\n<dt class="folder">${rootFolder}\n  <dl>\n${generateHtml(folderMap, 2)}  </dl>\n</dt>\n</dl>`;
+    return `<dl>\n<dt class="folder expand-icon">${rootFolder}\n  <dl>\n${generateHtml(folderMap, 2)}  </dl>\n</dt>\n</dl>`;
   };
 
 function generateHtml(map, level = 0) {
@@ -129,10 +129,10 @@ function generateHtml(map, level = 0) {
     for (const [key, value] of map.entries()) {
         let fullPath = value.fullPath;
         if (value.size === 0) {
-            html += `${indent}<dt class="file" data-fullpath="${fullPath}">${key}</dt>\n`; 
+            html += `${indent}<dt class="file hidden" data-fullpath="${fullPath}">${key}</dt>\n`; 
         } else {
-            html += `${indent}<dt class="folder" data-fullpath="${fullPath}">${key}/\n`;
-            html += `${indent}  <dl class="hidden">\n`;
+            html += `${indent}<dt class="folder expand-icon hidden" data-fullpath="${fullPath}">${key}/\n`;
+            html += `${indent}  <dl>\n`;
             html += generateHtml(value, level + 2);
             html += `${indent}  </dl>\n`;
             html += `${indent}</dt>\n`;

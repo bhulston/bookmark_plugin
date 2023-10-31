@@ -175,9 +175,9 @@ async function collectDir(data, folders, key, url) {
         const isMD = item.slice(-2) === 'md';
         
         if (isFolder) {
-            folders.files.push(uri); // push folder names
+            folders.files.push(cleanURI(uri)); // push folder names
             try {
-                console.log("Querying files contained in", uri);
+                console.log("Querying files contained in", cleanURI(uri));
                 const response = await fetch(uri, {
                     method: 'GET',
                     headers: {
@@ -191,14 +191,20 @@ async function collectDir(data, folders, key, url) {
                 console.log('ERROR', e);
             }
         } else if (isMD) {
-            folders.files.push(uri); // push file names
+            folders.files.push(cleanURI(uri)); // push file names
         }
     }
     return folders;
 };
 
-async function getDir(key, url) {
-    const root = url || 'https://127.0.0.1:27124/vault/'; // Assuming url is optional
+function cleanURI(uri) {
+    const root = 'https://127.0.0.1:27124/vault/';
+    return uri.replace(new RegExp(`^${root}`), '');
+
+}
+
+async function getDir(key) {
+    const root = 'https://127.0.0.1:27124/vault/'; // Assuming url is optional
     let folders = { files: [] };
 
     try { 
@@ -223,11 +229,4 @@ async function getDir(key, url) {
 };
 
 
-
-
-
-
-
 export {postObsidian, getDir};
-
-

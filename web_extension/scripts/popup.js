@@ -12,41 +12,31 @@ console.log("This is a popup!");
 // const check = await fetch(url + "/", options);
 const key = "868beedb25e084c7daf918f437e39d237e4156d2d878c2ace37da31404d3b9ac";
 const root = 'https://127.0.0.1:27124/vault/';
+// CHANGE to collect necessary information from the options page rather than hardcoded
 
-const folderData = {
-    //CHANGE this to put tester (and other root based files) as root files, instead of in 10 Personal which is where it goes now??
-    "files": [
-      "00 Meta/",
-      "10 Personal/",
-      "00 Meta/test",
-      "tester",
-      "10 Personal/IPhone Notes/",
-      "10 Personal/Daily Life/",
-      "10 Personal/Daily Life/YUHHH",
-      "10 Personal/Test.md",
-      "10 Personal/IPhone Notes/1",
-      "10 Personal/IPhone Notes/12/",
-      "10 Personal/IPhone Notes/12/Hey QT",
-      "10 Personal/IPhone Notes/2",
-      "10 Personal/IPhone Notes/12/Android",
-    ]
-  };
+// const folderData = {
+//     "files": [
+//       "00 Meta/",
+//       "10 Personal/",
+//       "00 Meta/test",
+//       "tester",
+//       "10 Personal/IPhone Notes/",
+//       "10 Personal/Daily Life/",
+//       "10 Personal/Daily Life/YUHHH",
+//       "10 Personal/Test.md",
+//       "10 Personal/IPhone Notes/1",
+//       "10 Personal/IPhone Notes/12/",
+//       "10 Personal/IPhone Notes/12/Hey QT",
+//       "10 Personal/IPhone Notes/2",
+//       "10 Personal/IPhone Notes/12/Android",
+//     ]
+//   };
 //Fix the createFolderStructure from directory.js to properly make the structure
-const folderStructureContainer = document.getElementById('folder-structure');
-const element = createFolderStructure(folderData, folderStructureContainer);
-folderStructureContainer.innerHTML = element;
+// const folderStructureContainer = document.getElementById('folder-structure');
+// const element = createFolderStructure(folderData, folderStructureContainer);
+// folderStructureContainer.innerHTML = element;
 
-//Actual queries to get the real folderData is below
 
-// const folderData = getDir(key);
-// getDir(key, root).then((folderData) => {
-//     console.log('Directory API response', folderData);
-//     const folderStructureContainer = document.getElementById('folder-structure');
-//     console.log('Directory test', folderStructureContainer);
-//     createFolderStructure(folderData, folderStructureContainer);
-// }).catch((error) => {
-//     console.log(error)
-// });
 
 // Popup HTML elements
 // let elmUrl = document.getElementById("url"); 
@@ -180,6 +170,19 @@ runScriptButton.addEventListener('click', function () {
 
 //Folder structure section
 
+//Actual queries to get the real folderData is below
+
+// const folderData = getDir(key);
+getDir(key).then((folderData) => {
+    console.log('Directory API response', folderData);
+    const folderStructureContainer = document.getElementById('folder-structure');
+    console.log('Directory test', folderStructureContainer);
+    const element = createFolderStructure(folderData, folderStructureContainer);
+    folderStructureContainer.innerHTML = element;
+}).catch((error) => {
+    console.log(error)
+});
+
 // Get references to the button and folder popup elements
 const openFolderButton = document.getElementById('openFolderButton');
 const folderPopup = document.getElementById('folderPopup');
@@ -211,16 +214,24 @@ document.addEventListener("click", function(event) {
     if (event.target.classList.contains('folder')) {
         console.log("folder clicked", event.target);
         const folder = event.target.closest('.folder');
-        const childDl = folder.querySelector('dl');
+        const childDts = folder.querySelectorAll(':scope > dl > dt');
+        // const childDl = folder.querySelector('dl');
+        // console.log(childDt);
         
-        if (childDl.classList.contains('hidden')) {
-            childDl.classList.remove('hidden');
-            folder.querySelector('.expand-icon').classList.add('collapse-icon');
-            folder.querySelector('.expand-icon').classList.remove('expand-icon');
+        if (folder.querySelector('dt').classList.contains('hidden')) {
+            // childDl.classList.remove('hidden');
+            childDts.forEach((childDt) => {
+                childDt.classList.remove('hidden');
+              });
+            folder.classList.add('collapse-icon');
+            folder.classList.remove('expand-icon');
         } else {
-            childDl.classList.add('hidden');
-            folder.querySelector('.collapse-icon').classList.add('expand-icon');
-            folder.querySelector('.collapse-icon').classList.remove('collapse-icon');
+            // childDl.classList.add('hidden');
+            childDts.forEach((childDt) => {
+                childDt.classList.add('hidden');
+              });
+            folder.classList.add('expand-icon');
+            folder.classList.remove('collapse-icon');
         }
     }
 
