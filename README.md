@@ -21,8 +21,8 @@ Here is a list of the features you can expect with this chrome extension:
 
 ## Demo
 ---
-![Demo](https://github.com/bhulston/bookmark_plugin/blob/main/Demo.mp4)
 
+<video src='Demo.mp4' width=640 hieght=480 controls/>
 
 ## Setup
 ---
