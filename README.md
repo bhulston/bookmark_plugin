@@ -22,7 +22,7 @@ Here is a list of the features you can expect with this chrome extension:
 ## Demo
 ---
 
-<video src='Demo.mp4' width=640 hieght=480 controls/>
+<video src='https://github.com/bhulston/bookmark_plugin/blob/main/Demo.mp4' width=640 hieght=480/>
 
 ## Setup
 ---
