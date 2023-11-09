@@ -14,15 +14,14 @@
         <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
             <div class="container flex flex-wrap justify-between items-center mx-auto">
                 <a href="#" class="flex items-center">
-                    <img src="../assets/obsidian48.png" class="mr-3 h-6 sm:h-9" alt="" />
-                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Web
-                        Search</span>
+                    <!-- <img src="../assets/obsidian48.png" class="mr-3 h-6 sm:h-9" alt="" /> -->
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Bookmarks</span>
                 </a>
                 <button data-collapse-toggle="navbar-default" type="button"
                     class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                     aria-controls="navbar-default" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
-                    <img class="w-6 h-6" aria-hidden="true" src="../assets/obsidian48.png" />
+                    <!-- <img class="w-6 h-6" aria-hidden="true" src="../assets/obsidian48.png" /> -->
                 </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul
@@ -55,7 +54,7 @@
         <div class="max-w-2xl dark:text-white text-base">
             <h1 id="about"
                 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                Obsidian Digital Bookmarks
+                Obsidian Bookmarks
             </h1>
 
             <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
@@ -63,9 +62,9 @@
             </h2>
             <p>
                 If you have been looking for a better alternative to Chrome bookmarks to keep track of your articles and videos, you've come to the right place!
-                This requires Obsidian to be used (maybe I will add more integrations in the future!). 
+                This requires Obsidian to be used (maybe I will add more integrations in the future!). \n
 
-                I've tried to make this extension functional and customizable so that you can organize your notes as you like. There is a default included though.
+                I've tried to make this extension functional and customizable so that you can organize your notes as you like. There is a default included though. \n
 
                 Note: this requires the Obsidian Local REST API to work (as that is how we create new notes in your vault!). So make sure that is working as well.
             </p>
@@ -80,7 +79,7 @@
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
+                    Obsidian File Search: Choose bookmark locations easily using search in extension
                 </li>
                 <li class="flex items-center">
                     <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
@@ -89,16 +88,7 @@
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    URL MATCHING: Search your vault for matches of your current url
-                </li>
-                <li class="flex items-center">
-                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
-                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    Scroll and open your matched Obsidian notes in the sidebar
+                    Automatically Collect DOM data from webpage (Optimized for Medium and Youtube!)
                 </li>
                 <li class="flex items-center">
                     <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor"
@@ -116,16 +106,14 @@
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    Customize how much context you want to see
+                    Add additional context and create new notes in vault corresponding with bookmark
                 </li>
             </ul>
             <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
                 Privacy
             </h3>
             <p class="mb-6">
-                This extension just communicates between your local Obsidian REST Api
-                and the browser. The only data that is stored permanently in the
-                browser are the settings you find below. 
+                This extension communicates with your Obsidian vault via an API and stores no data other than the settings below...
             </p>
 
             <form id="settings" name="settings">
@@ -150,6 +138,18 @@
                     </div>
 
                     <div class="mb-6">
+                        <label for="googleAPI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Your Google Api Key - Get your YouTube Data API v3 key 
+                            <a class="text-sm font-medium text-blue-500 dark:text-blue-300 inline-block" href="https://developers.google.com/youtube/v3/getting-started">
+                                here</a>
+                            </label> 
+                        <input type="text" id="googleAPI" name="googleAPI"
+                            placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
+                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                            />
+                    </div>
+
+                    <!-- <div class="mb-6">
                         <label for="vault" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Obsidian Vault Name</label>
                         <input type="text" id="vault" name="vault" placeholder="MyAwesomeSecondBrain"
@@ -158,7 +158,40 @@
                         <a id="openVault" href=""
                             class="w-1/4 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                             Open Vault</a>
+                    </div> -->
+
+                    <div class="mb-6">
+                        <label for="defaultLoc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Default Bookmark Location</label>
+                        <input type="text" id="defaultLoc" name="defaultLoc" placeholder="Bookmarks.md"
+                            class="inline shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                            />
+                        <ul id="searchResults" class = "hidden">
+                            <!-- Search results html will be appended here -->
+                        </ul>
                     </div>
+
+                    <div class="mb-6">
+                        <label for="MDtemplate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                          Your Bookmark Template (Markdown Based)
+                        </label>
+                        <textarea id="MDtemplate" name="MDtemplate" 
+                                  rows="4" 
+                                  placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef" 
+                                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" 
+                                  required></textarea>
+                    </div> 
+                    
+                    <div class="mb-6">
+                    <label for="YAMLtemplate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Your YAML Template (for new notes)
+                    </label>
+                    <textarea id="YAMLtemplate" name="YAMLtemplate" 
+                                rows="4" 
+                                placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef" 
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" 
+                                required></textarea>
+                    </div>     
 
                     <div class=" mb-6">
                         <label for="protocol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
@@ -191,6 +224,32 @@
                         <input type="number" id="port" name="port" value="27123"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
                     </div>
+
+                    <div class="mb-6">
+                        <label for="author" class="inline-flex relative items-center mr-5 cursor-pointer">
+                            <input type="checkbox" value="" id="author" name="customPort" class="sr-only peer"
+                                 />
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Disable Author
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="time" class="inline-flex relative items-center mr-5 cursor-pointer">
+                            <input type="checkbox" value="" id="time" name="customPort" class="sr-only peer"
+                                 />
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Disable Reading Time
+                            </span>
+                        </label>
+                    </div>
                 </fieldset>
 
                 <button type="submit"
@@ -218,7 +277,7 @@
                     <a href="https://github.com/coddingtonbear/obsidian-local-rest-api">Obsidian Local REST Api
                         Plugin</a>
                     <a href="https://github.com/coddingtonbear">@Adam Coddington</a> for
-                    his awesome work. His effort rendered this extension possible.
+                    his awesome Obsidian REST API which fully enabled this plugin!
                 </p>
             </div>
         </div>

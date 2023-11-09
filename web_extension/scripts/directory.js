@@ -34,8 +34,6 @@ function createFolderStructure(data, parentElement) {
 // Now, filesWithoutSlash contains the files that have no '/' in their names
 // and data.files contains the files that do have a '/'.
 
-      
-    console.log("Here is the files sorted:, ", data.files);
 
     //Get subfolder and file data for each root file
     const newFolderData = buildSubFolders(data);
@@ -57,12 +55,10 @@ function createFolderStructure(data, parentElement) {
               }
         };
      
-      console.log("before rootFiles html:", finalElement);
       const rootFileHTML = buildRootFiles(rootFiles);
       finalElement += rootFileHTML;
-      console.log("Final HTML:", finalElement);
-      
-      return finalElement;
+
+    return finalElement;
     // Now we return the element to be added to our html later
     
 };
@@ -142,4 +138,47 @@ function generateHtml(map, level = 0) {
     return html;
 };
 
-export { createFolderStructure };
+
+// Code to get just the path end nodes, without any folders
+function generateSearch(data, parentElement, option) {
+    console.log("generateSearch function called");
+    if (option == "file") {
+        data.files.forEach((path) => {
+            if (path.endsWith('.md')) {
+              const listItem = document.createElement("li");
+              
+              // Add classes
+              listItem.classList.add("file", "path");
+    
+              // Add data attribute
+              listItem.setAttribute("data-fullpath", path);
+    
+              // Add text
+              listItem.textContent = path;
+    
+              // Append to results element
+              parentElement.appendChild(listItem);
+            }
+        })
+    } else {
+        data.files.forEach((path) => {
+            if (!path.endsWith('.md')) {
+              const listItem = document.createElement("li");
+              
+              // Add classes
+              listItem.classList.add("folder", "path");
+    
+              // Add data attribute
+              listItem.setAttribute("data-fullpath", path);
+    
+              // Add text
+              listItem.textContent = path;
+    
+              // Append to results element
+              parentElement.appendChild(listItem);
+            }
+        })
+    }
+    
+};
+export { createFolderStructure, generateSearch };

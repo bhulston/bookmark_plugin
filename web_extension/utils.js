@@ -65,6 +65,76 @@ const checkURL = (url) => {
     }
 };
 
+function handleApiResponse(response, element, option) {
+  let firstResult, secondResult;
+  var status = element;
+
+  // Check if the response is a tuple (array)
+  if (Array.isArray(response)) {
+    [firstResult, secondResult] = response;
+  } else {
+    // It's a single boolean value
+    firstResult = response;
+    // Default second result to null or some default value
+    secondResult = null;
+  }
+
+  // Now you can handle the scenarios based on the values of firstResult and secondResult
+  // Scenario: refresh
+  if (option == 'refresh') { 
+    console.log('Refreshing Vault');
+    status.textContent = "⟳ Vault Refreshed";
+    setTimeout(() => status.textContent = "", 3000);
+  }
+  // Scenario: No Note
+  else if (option == '') {
+    status.textContent = "❗No Bookmark Location specified";
+    setTimeout(() => status.textContent = "", 3000);
+  }
+  else if (option == '' && secondResult === true) {
+    status.textContent = "✅New Note Saved!";
+    setTimeout(() => status.textContent = "", 3000);
+  }
+  // Scenario: both true
+  else if (firstResult && secondResult === true) {
+    console.log("✅Bookmark and New Note Saved!");
+    status.textContent = "✅Bookmark and New Note Saved!";
+    setTimeout(() => status.textContent = "", 3000);
+    // Perform the action for when both conditions are true
+  }
+  // Scenario: both false
+  else if (firstResult === false && secondResult === false) {
+    console.log("❗Bookmark and Note Failed");
+    status.textContent = "❗Bookmark and Note Failed";
+    setTimeout(() => status.textContent = "", 3000);
+    // Perform the action for when both conditions are false
+  }
+  // Scenario: first is true, second is false
+  else if (firstResult && secondResult === false) {
+    console.log("❗Bookmark made, but New Note Failed");
+    status.textContent = "❗Bookmark made, but New Note Failed";
+    setTimeout(() => status.textContent = "", 3000);
+  }
+  // Scenario: first is false, second is true
+  else if (firstResult === false && secondResult) {
+    console.log("❗Bookmark Failed, but New Note Created");
+    status.textContent = "❗Bookmark Failed, but New Note Created"
+    setTimeout(() => status.textContent = "", 3000);
+  }
+  // Scenario: single true
+  else if (firstResult && secondResult === null) {
+    console.log("✅Bookmark Saved!");
+    status.textContent = "✅Bookmark Saved!";
+    setTimeout(() => status.textContent = "", 3000);
+  }
+  // Scenario: single false
+  else if (firstResult === false && secondResult === null) {
+    console.log("❗Bookmark Failed");
+    status.textContent = "❗Bookmark Failed";
+    setTimeout(() => status.textContent = "", 3000);
+  }
+};
+
 async function checkApiKey(url, apiKey) {
     console.log(url, apiKey);
     // API GET function
@@ -121,4 +191,4 @@ async function checkApiKey(url, apiKey) {
     return statusText;
   };
 
-export { ISO8601DurationToSeconds, injectContentScript, getVideoID, handleSuccess, checkURL, checkApiKey } ;
+export { ISO8601DurationToSeconds, injectContentScript, getVideoID, handleSuccess, checkURL, checkApiKey, handleApiResponse } ;

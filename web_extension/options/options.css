@@ -42,6 +42,34 @@ html {
   /* 6 */
 }
 
+#searchResults {
+  /* display: block; */
+  background-color: #4d3ca6;
+  padding: 10px;
+  border-radius: 6px;
+  z-index: 999;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+  min-height: 50px;
+  max-height: 160px;
+  width: 65%;
+  /* right: 10%; */
+  /* top: 38%; */
+  
+}
+
+#searchResults .path {
+  width: 100%;
+  -webkit-text-fill-color: aliceblue;
+  margin-bottom: 8px;
+  list-style-type: none;
+  text-align: left;
+  padding-left: 0px;
+  
+  /* position: absolute; */
+}
+
 /*
 1. Remove the margin in all browsers.
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
@@ -166,6 +194,19 @@ table {
   /* 2 */
   border-collapse: collapse;
   /* 3 */
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-blue-500 {
+  color: #3b82f6; /* This is a shade of blue, adjust the color as needed */
+}
+
+/* Add :hover to change the color when the mouse is over the link */
+.text-blue-500:hover {
+  color: #2563eb; /* A slightly darker shade for hover effect */
 }
 
 /*

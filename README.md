@@ -21,8 +21,10 @@ Here is a list of the features you can expect with this chrome extension:
 
 ## Demo
 ---
-
-
+<video width="640" height="480" controls>
+  <source src="Demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 
 ## Setup

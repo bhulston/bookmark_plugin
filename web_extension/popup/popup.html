@@ -7,36 +7,79 @@
     <script type="module" src="../scripts/popup.js"></script>
     <link rel="stylesheet" href="popup.css">
 </head>
-<body>
+<body style = "margin: 0; padding: 0; overflow: hidden; background: none;">
     <div class="popup-container">
         <div class="popup-box">
-            <a class="icon-container" href="../options/options.html" target="_blank">
-                <img src="../images/cog.png" alt="Icon" width="20" height="20">
-            </a>
-            <h2 class="header">Bookmark Info</h2>
-            <!-- <p><strong>URL:</strong> <span id = "url"> Not found </span></p> -->
-            <p><strong>Page Title:</strong> <input type="text" id="title" value="Not found"></p>
-
-            <p><strong id="info3">Reading Time:</strong> <input type="text" id="value3" value="Not found"> </p>
-            <p><strong id="info4">Page Author:</strong> <input type="text" id="value4" value="Not found"> </p>
-            <p><strong id="info5">Bookmark Location:</strong> <input type="text" id ="bookmarkValue" value="Not Selected"></p>
-
-            <button id="runScriptButton">Run Script</button>
-            <button id="openFolderButton">Select Bookmark Location</button>
-            <button id="sendButton">Save to Obsidian</button>
-
-            <div>
-                <input id="openNote" type="checkbox" style="float: left; margin-top: 5px; position: relative; top: 0.5px; z-index: 999;">
-                <div style=" position: relative; left: 6px; top: 5px;">
-                    Create New Note?
-                </div>
+            <div class="header">
+                <h2 class="header-text">
+                    <img src="../images/obsidian.png" alt="Icon", width="20" height="20" style="vertical-align:-2.5px;"></img>
+                    Obsidian Bookmarks
+                </h2>
+                <a class="icon-container" href="../options/options.html" target="_blank">
+                    <img src="../images/cog.png" alt="Icon" width="20" height="20">
+                </a>
             </div>
+            <p><strong class="section">Page Title:</strong> <input type="text" id="title" placeholder="Not found"></p>
+
+            <p>
+                <strong id="info5" class="section">Bookmark Location:</strong> 
+                <img id="openFolderButton" src="../images/folder.png" alt="Icon" width="17" height="17" style="z-index: 9999"></img>
+                <input type="text" id ="bookmarkValue" placeholder="Type to Search">
+                <ul id="bookmarkResults" class = "hidden">
+                    <!-- Search results html will be appended here -->
+                </ul>
+            </p>
+
+            <p id="author"><strong id="info4" class="section">Page Author:</strong> <input type="text" id="value4" value=""> </p>
+            <p id="time"><strong id="info3" class="section">Reading Time:</strong> <input type="text" id="value3" value=""> </p>
+
+            <div class="slider-container2" id="slider-container2">
+                <label for="customTemplate" class="switch">
+                    <strong class="label-text">
+                        Add Note/Customize Template?
+                    </strong>
+                    <input type="checkbox" id="customTemplate" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+
+            <p id = "templateContainer" class = "hidden">
+                <strong class="section">Customize MD:</strong>
+                <textarea type="text" id="MDtemplate" rows ="4" value=""></textarea>
+                <ul class="hidden"></ul>
+                
+            </p>
+
+            <div class="slider-container" id="slider-container">
+                <label for="openNote" class="switch">
+                    <strong class="label-text">
+                        Create New Note?
+                    </strong>
+                    <input type="checkbox" id="openNote" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+
+            <p id = "newNoteContainer" class = "hidden">
+                <strong id="newNote" class="section">New Note Location:</strong>
+                <input type="text" id="newNoteLoc" value=""> 
+                <ul id="bookmarkResults2" class = "hidden">
+                    <!-- Search results html will be appended here -->
+                </ul>
+            </p>
+
+            <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="apiStatus"></span>
+
+            <div class="btn-container">
+                <button id="refreshVault" class="btn">Refresh Vault</button>
+                <button id="sendButton" class="btn" style = "z-index: 9999;">Save to Obsidian</button>
+            </div>
+            
         </div>
         <div id="folderPopup" class="folder-popup">
             <div id="folder-structure"></div>
-            <!-- <script src="../scripts/directory.js"></script> -->
+                <header>Select Bookmark Location!</header>
         </div>
-
     </div>
 </body>
 </html>

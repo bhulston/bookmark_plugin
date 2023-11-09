@@ -1,52 +1,95 @@
-import { checkApiKey } from '@/util.js';
+import { checkApiKey } from "../utils.js";
+import { getDir } from "../obsidian/o_utils.js";
+import { generateSearch } from "../scripts/directory.js";
+
 
 const openObsidianUri = 'obsidian://open?vault=';
 
-// How do we save these for future uses of the browser?
-    // Figure this part out
+// First, we setup the cache
+const options = { count: 0 }; // Renamed to options for clarity
+
+// Asynchronously retrieve data from storage.sync, then cache it in options.
+const initOptionsCache = async () => {
+  try {
+    const items = await chrome.storage.sync.get();
+    // Copy the data retrieved from storage into options.
+    Object.assign(options, items);
+  } catch (e) {
+    // Handle error that occurred during storage initialization.
+    console.error('Error initializing options from storage:', e);
+  }
+};
+
+// initOptionsCache();
+
+
+// Listen for when the extension's icon is clicked.
+chrome.action.onClicked.addListener((tab) => {
+  // Increment the cache count and update the last tab ID in options.
+  options.count++;
+  options.lastTabId = tab.id;
+
+  // Save the updated options back to storage.
+  chrome.storage.sync.set(options);
+});
 
 // Saves options to browser.storage
 async function saveSettings(event) {
     event?.preventDefault();
+    console.log("Settings saved!");
+    //Set cache to new values
+    options.apiKey = document.getElementById("apiKey").value;
+    options.googleAPI = document.getElementById("googleAPI").value; // YouTube Data API v3
+    // options.vault = document.getElementById("vault").value;
+    options.md = document.getElementById("MDtemplate").value;
+    options.yaml = document.getElementById("YAMLtemplate").value;
 
-    browser.storage.sync.set(
-        {
-            apiKey: document.getElementById("apiKey").value,
-            vault: document.getElementById("vault").value,
-            protocol: document.getElementById("protocol").value,
-            customPort: Boolean(document.getElementById("customPort").checked),
-            port: Number(document.getElementById("port").value),
-            liveSearch: Boolean(document.getElementById("liveSearch").checked),
-            showInPageIcon: Boolean(document.getElementById("showInPageIcon").checked),
-            minChars: Number(document.getElementById("minChars").value),
-            contextLength: Number(document.getElementById("contextLength").value),
-            matchCount: Number(document.getElementById("matchCount").value),
-            noteNumber: Number(document.getElementById("noteNumber").value),
-            searchUrls: document.getElementById("searchUrls").value,
-            excludes: document.getElementById("excludes").value
-        }
-    );
+    options.protocol = document.getElementById("protocol").value ;
+    options.customPort = Boolean(document.getElementById("customPort").checked);
+    options.port = Number(document.getElementById("port").value);
+    options.defaultLoc = document.getElementById("defaultLoc").value
+
+    options.author = Boolean(document.getElementById("author").checked);
+    options.time = Boolean(document.getElementById("time").checked);
+
+    chrome.storage.sync.set(options);
 
     // Update status to let user know options were saved.
     var status = document.getElementById("status");
     status.textContent = "Options saved.";
     setTimeout(() => status.textContent = "", 750);
-    browser.storage.sync.get().then(console.log);
+    console.log("Cache values:", options)
 }
 
-// Restores select box and checkbox state using the preferences stored in browser.storage.
+// Restores settings on page loadup
 async function restoreSettings() {
-    browser.storage.sync.get()
-        .then(data => {
-            // Fill data fields
-            for (const [key, value] of Object.entries(data)) {
-                if (key == 'liveSearch' || key == 'showInPageIcon' || key == 'customPort') document.querySelector('#' + key).checked = value;
-                else if (document.querySelector('#' + key)) document.querySelector('#' + key).value = value;
-                if (key == 'vault') document.querySelector('#openVault').href = openObsidianUri + encodeURIComponent(value);
+    initOptionsCache().then(() => {
+        // Fill data fields using the cached options
+        for (const [key, value] of Object.entries(options)) {
+            if (key == 'author' || key == 'time' || key == 'customPort') {
+                document.querySelector('#' + key).checked = value;
+            } else if (document.querySelector('#' + key)) {
+                document.querySelector('#' + key).value = value;
             }
-            setStatus();
-        });
-}
+            // if (key == 'vault') {
+            //     document.querySelector('#openVault').href = openObsidianUri + encodeURIComponent(value);
+            // }
+            else if (key == 'apiKey') {
+                try {
+                    selectFile();
+                } catch (e) {
+                    console.log('Obsidian APIKey not saved/valid', e);
+                }
+            }
+            else if (key == 'yaml') {
+                document.getElementById('YAMLtemplate').value = options.yaml;
+            }
+            else if (key == 'md') {
+                document.getElementById('MDtemplate').value = options.md;
+            }
+        }
+    });
+};
 
 // Connection check
 async function setStatus() {
@@ -54,17 +97,79 @@ async function setStatus() {
     const url = document.getElementById('protocol').value;
     const infoElem = document.getElementById('apiKeyCheck');
     infoElem.innerText = await checkApiKey(url, apiKey);
+    selectFile();
 }
 
 function setVaultLink(event) {
     document.getElementById('openVault').href = openObsidianUri + encodeURIComponent(event.target.value);
+    console.log(document.getElementById('openVault').href);
 }
+
+function selectFile() {
+    const search = document.getElementById('defaultLoc');
+    const searchResults = document.getElementById('searchResults');
+    const url = document.getElementById('protocol').value;
+
+    const apiKey = options.apiKey;
+    if (checkApiKey(url, apiKey)) {
+        getDir(apiKey).then((folderData) => {
+            generateSearch(folderData, searchResults, "file");
+            console.log('Directory API response', folderData);
+        }).catch((error) => {
+            console.log(error)
+        });
+    
+        search.addEventListener("keyup", (event) => {
+            //Visualize results
+            searchResults.classList.remove('hidden');
+        
+            // store name elements in array-like object
+            const pathsFromDOM = document.getElementsByClassName("path");
+            console.log(pathsFromDOM);
+        
+            // get user search input converted to lowercase
+            const { value } = event.target;
+            console.log('Search is', value);
+            const searchQuery = value.toLowerCase();
+            
+            for (const pathElement of pathsFromDOM) {
+                // store name text and convert to lowercase
+                let path = pathElement.textContent.toLowerCase();
+                const splitPath = path.split("/");
+                const file = splitPath.pop(); 
+                
+                // compare current name to search input
+                if (file.includes(searchQuery)) {
+                    // found name matching search, display it
+                    console.log('DISPLAYING!', file);
+                    pathElement.style.display = "block";
+                    console.log(pathElement);
+                } else {
+                    // no match, don't display name
+                    console.log('BLOCKED');
+                    pathElement.style.display = "none";
+                }
+            }
+        });
+    } else {
+        //Try again later
+    }
+};
+
+function closeSearch() {
+    if (searchResults.classList.contains('hidden')) {
+        //do nothing
+    } else {
+        searchResults.classList.add('hidden');
+    }
+};
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const init = () => {
         restoreSettings();
         const portElem = document.getElementById('port-container');
-        browser.storage.sync.get({ customPort: false }).then((data) => {
+        chrome.storage.sync.get({ customPort: false }).then((data) => {
             if (data.customPort) portElem.classList.remove('hidden');
             else portElem.classList.add('hidden');
         });
@@ -73,9 +178,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         document.getElementById("settings").addEventListener("submit", saveSettings);
         document.getElementById('apiKey').addEventListener('change', setStatus);
-        document.getElementById('vault').addEventListener('change', setVaultLink);
-        document.getElementById('apiKey').addEventListener('input', setStatus);
+        // document.getElementById('vault').addEventListener('change', setVaultLink);
         document.getElementById('protocol').addEventListener('change', setStatus);
     }
     setTimeout(init, 500);
 });
+
+document.addEventListener('click', (event) => {
+    //Click events
+    const searchResults = document.getElementById('searchResults');
+    
+    if (!searchResults.contains(event.target)) {
+        closeSearch()
+    }
+
+    // Check if the clicked element is a file
+    if (event.target.classList.contains('file')) {
+        // Handle file click
+        console.log("file clicked", event.target);
+
+        //Set visual elements
+        const defaultLoc = document.getElementById('defaultLoc');
+        defaultLoc.value = event.target.getAttribute('data-fullPath');
+        
+        //Save to cache
+        options.defaultLoc = event.target.getAttribute('data-fullPath');
+        closeSearch();
+    }
+    
+});
+
+
+// So basically we need to 
+    // Do we ened vault name at all? I feel like no right??
+    // Exclude section if they want

@@ -33,9 +33,9 @@ async function getObsidian(url, key, accept) {
 };
 
 async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
-    // first check if it exists, if it does, we append with post, otherwise we do a put
+    // first check if it exists, if it does, we append with post, or we do a put
     const get_response = getObsidian(url, key, accept);
-    console.log('HORNY', get_response);
+    console.log('Document exists:', get_response);
     /*
     Every bookmark send will always have a post and a put
         The post is to append to the bookmarks tab
@@ -98,10 +98,10 @@ async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
             console.log('ERROR', e);
             response2 = false;
         }
+    return (response1, response2)
    } else {
-    response2 = false;
+    return response1;
    }
-   return (response1, response2);   
 };
 
 
@@ -204,7 +204,7 @@ function cleanURI(uri) {
 }
 
 async function getDir(key) {
-    const root = 'https://127.0.0.1:27124/vault/'; // Assuming url is optional
+    const root = 'https://127.0.0.1:27124/vault/'; // Assuming url is optional CHANGE THIS TO GET 
     let folders = { files: [] };
 
     try { 
