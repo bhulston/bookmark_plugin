@@ -22,7 +22,9 @@ Here is a list of the features you can expect with this chrome extension:
 ## Demo
 ---
 
-<video src='https://github.com/bhulston/bookmark_plugin/blob/main/Demo.mp4' width=640 hieght=480/>
+https://github.com/bhulston/bookmark_plugin/assets/79114425/c324dd91-8ccb-4043-9cb4-35ff7e26e029
+
+
 
 ## Setup
 ---
