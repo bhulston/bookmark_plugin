@@ -33,23 +33,6 @@
             <p id="author"><strong id="info4" class="section">Page Author:</strong> <input type="text" id="value4" value=""> </p>
             <p id="time"><strong id="info3" class="section">Reading Time:</strong> <input type="text" id="value3" value=""> </p>
 
-            <div class="slider-container2" id="slider-container2">
-                <label for="customTemplate" class="switch">
-                    <strong class="label-text">
-                        Add Note/Customize Template?
-                    </strong>
-                    <input type="checkbox" id="customTemplate" />
-                    <div class="slider round"></div>
-                </label>
-            </div>
-
-            <p id = "templateContainer" class = "hidden">
-                <strong class="section">Customize MD:</strong>
-                <textarea type="text" id="MDtemplate" rows ="4" value=""></textarea>
-                <ul class="hidden"></ul>
-                
-            </p>
-
             <div class="slider-container" id="slider-container">
                 <label for="openNote" class="switch">
                     <strong class="label-text">
@@ -67,6 +50,25 @@
                     <!-- Search results html will be appended here -->
                 </ul>
             </p>
+            
+            <div class="slider-container2" id="slider-container2">
+                <label for="customTemplate" class="switch">
+                    <strong class="label-text">
+                        Add Note/Customize Template?
+                    </strong>
+                    <input type="checkbox" id="customTemplate" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+
+            <p id = "templateContainer" class = "hidden">
+                <strong class="section">Customize MD:</strong>
+                <textarea type="text" id="MDtemplate" rows ="4" value=""></textarea>
+                <ul class="hidden"></ul>
+                
+            </p>
+
+            
 
             <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="apiStatus"></span>
 

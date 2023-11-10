@@ -84,7 +84,7 @@ function handleApiResponse(response, element, option) {
   if (option == 'refresh') { 
     console.log('Refreshing Vault');
     status.textContent = "⟳ Vault Refreshed";
-    setTimeout(() => status.textContent = "", 3000);
+    setTimeout(() => status.textContent = "", 1500);
   }
   // Scenario: No Note
   else if (option == '') {

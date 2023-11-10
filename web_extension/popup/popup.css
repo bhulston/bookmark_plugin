@@ -188,11 +188,10 @@ header {
     overflow-y: auto;
     overflow-x: auto;
     position: absolute;
-    min-height: 50px;
-    max-height: 160px;
+    height: 160px;
     width: 80%;
     right: 10%;
-    top: 38%;
+    top: 42%;
     
 }
 

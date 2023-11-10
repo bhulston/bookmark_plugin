@@ -145,40 +145,57 @@ function generateSearch(data, parentElement, option) {
     if (option == "file") {
         data.files.forEach((path) => {
             if (path.endsWith('.md')) {
-              const listItem = document.createElement("li");
-              
-              // Add classes
-              listItem.classList.add("file", "path");
-    
-              // Add data attribute
-              listItem.setAttribute("data-fullpath", path);
-    
-              // Add text
-              listItem.textContent = path;
-    
-              // Append to results element
-              parentElement.appendChild(listItem);
+                // Check if element already exists
+                if (!elementExistsWithText(parentElement, path)) {
+                    const listItem = document.createElement("li");
+
+                    // Add classes
+                    listItem.classList.add("file", "path");
+
+                    // Add data attribute
+                    listItem.setAttribute("data-fullpath", path);
+
+                    // Add text
+                    listItem.textContent = path;
+
+                    // Append to results element
+                    parentElement.appendChild(listItem);
+                }
             }
-        })
+        });
     } else {
         data.files.forEach((path) => {
             if (!path.endsWith('.md')) {
-              const listItem = document.createElement("li");
-              
-              // Add classes
-              listItem.classList.add("folder", "path");
-    
-              // Add data attribute
-              listItem.setAttribute("data-fullpath", path);
-    
-              // Add text
-              listItem.textContent = path;
-    
-              // Append to results element
-              parentElement.appendChild(listItem);
+                // Check if element already exists
+                if (!elementExistsWithText(parentElement, path)) {
+                    const listItem = document.createElement("li");
+
+                    // Add classes
+                    listItem.classList.add("folder", "path");
+
+                    // Add data attribute
+                    listItem.setAttribute("data-fullpath", path);
+
+                    // Add text
+                    listItem.textContent = path;
+
+                    // Append to results element
+                    parentElement.appendChild(listItem);
+                }
             }
-        })
+        });
     }
-    
-};
+
+    // Helper function to check if an element with the same textContent already exists
+    function elementExistsWithText(parent, text) {
+        const items = parent.getElementsByTagName("li");
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].textContent === text) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 export { createFolderStructure, generateSearch };

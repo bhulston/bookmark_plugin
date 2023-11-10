@@ -175,10 +175,10 @@ refreshVault.addEventListener('click', async function () {
     const status = document.getElementById("apiStatus");
     try {
         loadVault();
-        handleApiResponse(check, status, 'refresh');
+        handleApiResponse(true, status, 'refresh');
     } catch (e) {
         status.textContent = "An Error Occurred:(";
-        setTimeout(() => status.textContent = "", 3000);
+        setTimeout(() => status.textContent = "", 2000);
     };
 });
 
@@ -202,6 +202,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         //Parse for video information
         const videoID = getVideoID(url);
         const key = options.googleAPI;
+        console.log(options.googleAPI);
         let url1 = "https://www.googleapis.com/youtube/v3/videos?id=" + videoID + "&key=" + key +"&part=snippet,contentDetails";
         
         //Execute scripts and hit Google API
@@ -386,7 +387,7 @@ searchInput.addEventListener("keyup", (event) => {
     searchResults.classList.remove('hidden');
 
     // store name elements in array-like object
-    const pathsFromDOM = document.getElementsByClassName("path");
+    const pathsFromDOM = document.querySelectorAll("#bookmarkResults .path");
     console.log(pathsFromDOM);
 
     // get user search input converted to lowercase
@@ -419,7 +420,7 @@ searchInput2.addEventListener("keyup", (event) => {
     searchResults2.classList.remove('hidden');
 
     // store name elements in array-like object
-    const pathsFromDOM = document.getElementsByClassName("folder");
+    const pathsFromDOM = document.querySelectorAll("#bookmarkResults2 .folder");
     console.log(pathsFromDOM);
 
     // get user search input converted to lowercase
