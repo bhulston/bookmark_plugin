@@ -134,7 +134,7 @@ sendObsidian.addEventListener('click', async function () {
         title: elmTitle.value,
         time: elmDuration.value,
         author: elmAuthor.value,
-        url: url
+        url: `${url}`
         };
     const hideAuthor = document.getElementById('author').checked;
     const hideTime = document.getElementById('time').checked;
