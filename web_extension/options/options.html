@@ -14,8 +14,7 @@
         <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
             <div class="container flex flex-wrap justify-between items-center mx-auto">
                 <a href="#" class="flex items-center">
-                    <!-- <img src="../assets/obsidian48.png" class="mr-3 h-6 sm:h-9" alt="" /> -->
-                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Bookmarks</span>
+                    <img src="../images/obsidian.png" class="mr-3 h-6 sm:h-9" alt="" />
                 </a>
                 <button data-collapse-toggle="navbar-default" type="button"
                     class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -31,13 +30,8 @@
                                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
                         </li>
                         <li>
-                            <a href="#core-settings"
-                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Core
-                                Settings</a>
-                        </li>
-                        <li>
-                            <a href="#display-settings"
-                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Display
+                            <a href="#settings"
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 Settings</a>
                         </li>
                         <li>
@@ -57,19 +51,23 @@
                 Obsidian Bookmarks
             </h1>
 
-            <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
-                Setup Your Bookmark Settings
-            </h2>
             <p>
                 If you have been looking for a better alternative to Chrome bookmarks to keep track of your articles and videos, you've come to the right place!
-                This requires Obsidian to be used (maybe I will add more integrations in the future!). \n
-
-                I've tried to make this extension functional and customizable so that you can organize your notes as you like. There is a default included though. \n
-
-                Note: this requires the Obsidian Local REST API to work (as that is how we create new notes in your vault!). So make sure that is working as well.
-            </p>
+                This requires Obsidian to be used (maybe I will add more integrations in the future!).
+            </p> <br>
             <h3 class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
-                Features
+                Usage
+            </h3>
+            <p>
+                I've tried to make this extension functional and customizable so that you can organize your notes as you like. There is a default template included too.
+            </p> <br>
+            <p>
+                Note: this requires the Obsidian Local REST API to work (as that is how we create new notes in your vault!). You can find more information on that 
+                <a class="text-blue-500 dark:text-blue-300 inline-block" href="https://publish.obsidian.md/hub/02+-+Community+Expansions/02.05+All+Community+Expansions/Plugins/obsidian-local-rest-api">
+                    here</a>
+            </p> <br>
+            <h3 class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
+                What Can It Do?
             </h3>
             <ul class="space-y-1 max-w-lg list-inside text-gray-500 dark:text-gray-400">
                 <li class="flex items-center">
@@ -120,8 +118,12 @@
                 <fieldset>
                     <h2 id="core-settings">
                         <legend class="text-4xl mb-6 font-extrabold dark:text-white">
-                            Settings
+                            Settings <button id="statusButton"
+                            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                            Check Status
+                        </button>
                         </legend>
+                        
                     </h2>
 
                     <div class="my-3 p-3 border border-gray rounded-lg">
@@ -132,7 +134,7 @@
                         <label for="apiKey" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Your Obsidian REST Api Key</label>
                         <input type="text" id="apiKey" name="apiKey"
-                            placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
+                            placeholder="5aq387ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                             required />
                     </div>
@@ -140,30 +142,20 @@
                     <div class="mb-6">
                         <label for="googleAPI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Your Google Api Key - Get your YouTube Data API v3 key 
-                            <a class="text-sm font-medium text-blue-500 dark:text-blue-300 inline-block" href="https://developers.google.com/youtube/v3/getting-started">
+                            <a class="text-blue-500 dark:text-blue-300 inline-block" href="https://developers.google.com/youtube/v3/getting-started">
                                 here</a>
                             </label> 
                         <input type="text" id="googleAPI" name="googleAPI"
-                            placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
+                            placeholder="5a1387ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                             />
                     </div>
-
-                    <!-- <div class="mb-6">
-                        <label for="vault" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Obsidian Vault Name</label>
-                        <input type="text" id="vault" name="vault" placeholder="MyAwesomeSecondBrain"
-                            class="inline shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                            required />
-                        <a id="openVault" href=""
-                            class="w-1/4 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                            Open Vault</a>
-                    </div> -->
 
                     <div class="mb-6">
                         <label for="defaultLoc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Default Bookmark Location</label>
                         <input type="text" id="defaultLoc" name="defaultLoc" placeholder="Bookmarks.md"
+                            placeholder="Type to Search"
                             class="inline shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                             />
                         <ul id="searchResults" class = "hidden">
@@ -207,7 +199,7 @@
                     <div class="mb-6">
                         <label for="customPort" class="inline-flex relative items-center mr-5 cursor-pointer">
                             <input type="checkbox" value="" id="customPort" name="customPort" class="sr-only peer"
-                                checked="" />
+                                 />
                             <div
                                 class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
                             </div>
@@ -266,41 +258,30 @@
                 </h2>
                 <p>
                     My name is Brandon Hulston! Great to meet you:)
-                    \n This is an open source plugin and you can find the code in <a href="https://github.com/bhulston/bookmark_plugin">GitHub</a>
-                </p>
-
-                <h3 class="my-4 text-xl font-semibold text-gray-900 dark:text-white">
-                    Credits
-                </h3>
+                    \n This is an open source plugin and you can find the code in <a href="https://github.com/bhulston/bookmark_plugin" class="text-blue-500 dark:text-blue-300 inline-block">GitHub</a>
+                </p> <br>
+                <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
+                    Thank Yous!
+                </h2>
                 <p>
-                    Thank's to the creator of the
-                    <a href="https://github.com/coddingtonbear/obsidian-local-rest-api">Obsidian Local REST Api
-                        Plugin</a>
-                    <a href="https://github.com/coddingtonbear">@Adam Coddington</a> for
-                    his awesome Obsidian REST API which fully enabled this plugin!
+                    Special thank yous as well to 
+                    <a href="https://github.com/jplattel/obsidian-clipper" class="text-blue-500 dark:text-blue-300 inline-block">Joost Plattel</a> 
+                    , whose beautiful code helped a ton with this options page!
+                </p> <br>
+                <p> 
+                    And another big thank you to 
+                    <a href="https://github.com/jplattel/obsidian-clipper" class="text-blue-500 dark:text-blue-300 inline-block">Adam Coddington</a> 
+                     who built the "Local Obsidian RESET API" that enabled this project. 
                 </p>
+                
             </div>
         </div>
     </main>
 
     <footer class="p-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022
-            <a href="https://jkoster.com/" class="hover:underline">Jakob Osterberger</a>. All Rights Reserved.
+            <a href="https://www.linkedin.com/in/brandon-hulston/" class="hover:underline">Brandon Hulston</a>
         </span>
-        <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-            <li>
-                <a href="#about" class="mr-4 hover:underline md:mr-6 ">About</a>
-            </li>
-            <li>
-                <a href="#privacy" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-            </li>
-            <li>
-                <a href="githublicense" class="mr-4 hover:underline md:mr-6">Licensing</a>
-            </li>
-            <li>
-                <a href="#contact" class="hover:underline">Contact</a>
-            </li>
-        </ul>
     </footer>
     <script src="options.js" type="module"></script>
 </body>

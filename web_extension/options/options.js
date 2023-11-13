@@ -2,9 +2,6 @@ import { checkApiKey } from "../utils.js";
 import { getDir } from "../obsidian/o_utils.js";
 import { generateSearch } from "../scripts/directory.js";
 
-
-const openObsidianUri = 'obsidian://open?vault=';
-
 // First, we setup the cache
 const options = { count: 0 }; // Renamed to options for clarity
 
@@ -20,9 +17,6 @@ const initOptionsCache = async () => {
   }
 };
 
-// initOptionsCache();
-
-
 // Listen for when the extension's icon is clicked.
 chrome.action.onClicked.addListener((tab) => {
   // Increment the cache count and update the last tab ID in options.
@@ -36,6 +30,8 @@ chrome.action.onClicked.addListener((tab) => {
 // Saves options to browser.storage
 async function saveSettings(event) {
     event?.preventDefault();
+    selectFile();
+    setStatus();
     console.log("Settings saved!");
     //Set cache to new values
     options.apiKey = document.getElementById("apiKey").value;
@@ -74,7 +70,7 @@ async function restoreSettings() {
             // if (key == 'vault') {
             //     document.querySelector('#openVault').href = openObsidianUri + encodeURIComponent(value);
             // }
-            else if (key == 'apiKey') {
+            if (key == 'apiKey') {
                 try {
                     selectFile();
                 } catch (e) {
@@ -97,15 +93,10 @@ async function setStatus() {
     const url = document.getElementById('protocol').value;
     const infoElem = document.getElementById('apiKeyCheck');
     infoElem.innerText = await checkApiKey(url, apiKey);
-    selectFile();
-}
-
-function setVaultLink(event) {
-    document.getElementById('openVault').href = openObsidianUri + encodeURIComponent(event.target.value);
-    console.log(document.getElementById('openVault').href);
-}
+};
 
 function selectFile() {
+    console.log("Loading Obsidian Files");
     const search = document.getElementById('defaultLoc');
     const searchResults = document.getElementById('searchResults');
     const url = document.getElementById('protocol').value;
@@ -168,6 +159,7 @@ function closeSearch() {
 document.addEventListener("DOMContentLoaded", () => {
     const init = () => {
         restoreSettings();
+        selectFile();
         const portElem = document.getElementById('port-container');
         chrome.storage.sync.get({ customPort: false }).then((data) => {
             if (data.customPort) portElem.classList.remove('hidden');
@@ -178,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         document.getElementById("settings").addEventListener("submit", saveSettings);
         document.getElementById('apiKey').addEventListener('change', setStatus);
-        // document.getElementById('vault').addEventListener('change', setVaultLink);
         document.getElementById('protocol').addEventListener('change', setStatus);
     }
     setTimeout(init, 500);
@@ -187,6 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('click', (event) => {
     //Click events
     const searchResults = document.getElementById('searchResults');
+    const statusButton = document.getElementById('statusButton');
+
+    if (statusButton.contains(event.target)) {
+        setStatus();
+    }
     
     if (!searchResults.contains(event.target)) {
         closeSearch()
@@ -205,10 +201,9 @@ document.addEventListener('click', (event) => {
         options.defaultLoc = event.target.getAttribute('data-fullPath');
         closeSearch();
     }
+
+    
     
 });
 
 
-// So basically we need to 
-    // Do we ened vault name at all? I feel like no right??
-    // Exclude section if they want

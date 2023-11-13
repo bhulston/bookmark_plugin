@@ -1,4 +1,5 @@
 console.log("Background running");
+//Receiving information from content scraping script
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {

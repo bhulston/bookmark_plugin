@@ -80,8 +80,12 @@ input[type="text"] {
     -webkit-text-fill-color: #1a1a1a;
 }
 
-input[type="text"]::-webkit-input-placeholder {
-    color: rgb(245, 0, 0);
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.5;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
 }
 
 

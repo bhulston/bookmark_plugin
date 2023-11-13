@@ -105,68 +105,6 @@ async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
 };
 
 
-
-// async function collectDir(data, folders, key, url) {
-//     for (const item of data.files) {
-//         // const parts = item.split('/');
-//         // const root = parts[0];
-//         let uri = url + item;
-//         // const end = parts[parts.length - 1];
-//         const isFolder = item.charAt(item.length - 1) === '/';
-//         let file;
-
-//         // if (end === "") {
-//         //     file = parts[parts.length - 2];
-//         // } else {
-//         //     file = end;
-//         // }
-
-//         folders.files.push(data.files);
-
-//         if (isFolder) {
-//             try {
-//                 console.log("Querying files contained in", uri);
-//                 const response = await fetch(uri, {
-//                     method: 'GET',
-//                     headers: {
-//                         'accept': 'text/markdown',
-//                         'Authorization': 'Bearer ' + key
-//                     }
-//                 });
-//                 const responseData = await response.json();
-//                 await collectDir(responseData, folders, key, uri);
-//             } catch (e) {
-//                 console.log('ERROR', e);
-//             }
-//         }
-//     }
-//     return folders;
-// };
-
-// async function getDir(key, url) {
-//     const root = 'https://127.0.0.1:27124/vault/';
-//     let folders = { files: [] };
-
-//     try { 
-//         const response = await fetch(root, {
-//             method: 'GET',
-//             headers: {
-//                 'accept': 'json',
-//                 'Authorization': 'Bearer ' + key
-//             }
-//         });
-        
-//         console.log("API Check in getDir", response);
-//         const responseData = await response.json();
-//         folders = await collectDir(responseData, folders, key, url);
-//     } catch (e) {
-//         console.log('ERROR', e);
-//         alert('Folder Retrieval Failed, please update your API Key or your vault information');
-//         return;
-//     }
-
-//     return folders;
-// };
 async function collectDir(data, folders, key, url) {
     for (const item of data.files) {
         const isFolder = item.charAt(item.length - 1) === '/';
@@ -221,7 +159,6 @@ async function getDir(key) {
         folders = await collectDir(responseData, folders, key, root);
     } catch (e) {
         console.log('ERROR', e);
-        alert('Folder Retrieval Failed, please update your API Key or your vault information');
         return;
     }
 

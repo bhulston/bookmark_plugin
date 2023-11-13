@@ -214,7 +214,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         }).then(function(data){
             handleSuccess(data, elmTitle, elmDuration, elmAuthor)
         }).catch(function(error) {
-            console.error('Error:', error);
+            console.log('Google API Error:', error);
+            // Google API failed, so let's manually get title. Getting the watch time requires too much work without the api
+            injectContentScript(tabs[0]);
         });
     } else {
     // Need to use a content script to roead DOM contained information (word count and reading time)
@@ -228,7 +230,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if ( message.readSuccess == true ) {
     //   wordCount = message.wordCount;
       const readingTime = message.readingTime;
-      elmDuration.value = `${readingTime} minutes`;
+      elmDuration.value = `${readingTime}`;
 
       console.log("article info extracted");
 

@@ -1,19 +1,31 @@
 function ISO8601DurationToSeconds (duration) {
 	let seconds = duration.match(/(\d*)S/)
 	seconds = parseInt(seconds ? (parseInt(seconds[1], 10) ? seconds[1] : 0) : 0, 10)
+  seconds = cleanDuration(seconds);
 
 	let minutes = duration.match(/(\d*)M/)
 	minutes = parseInt(minutes ? (parseInt(minutes[1], 10) ? minutes[1] : 0) : 0, 10)
+  
 
 	let hours = duration.match(/(\d*)H/)
 	hours = parseInt(hours ? (parseInt(hours[1], 10) ? hours[1] : 0) : 0, 10)
 
     if (hours > 0) {
+      minutes = cleanDuration(minutes);
         return `${hours}:${minutes}:${seconds}`
     } else {
         return `${minutes}:${seconds}`
     }
 	     
+};
+
+function cleanDuration (int) {
+  let str = int.toString();
+  if (str.length === 1) {
+    return '0' + str;
+  } else {
+    return str;
+  }
 };
 
 const injectContentScript = (tab) => {
