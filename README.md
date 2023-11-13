@@ -59,7 +59,7 @@ A YAML template only is included when a new note is created and assigns page pro
 Markdown templates simply get appended to existing files! Here is an example to get you started:
 ```
 
-[${title}](url)
+[${title}](${url})
 ${time}
 ${author}
 ```
