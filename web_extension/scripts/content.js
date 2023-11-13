@@ -14,10 +14,16 @@ try {
 }
 
 if (type == 'youtube') { 
+    let pageTitle = '';
+    let author = '';
     //youtube scraping for title and channel name, might not be 100% reliable
-    let pageTitle = document.querySelector('meta[name="title"]').getAttribute('content');
-    let authorSpan = document.querySelector('span[itemprop="author"]').querySelector('link[itemprop="name"]');
-    let author = authorSpan.getAttribute('content');
+    try {
+        pageTitle = document.querySelector('meta[name="title"]').getAttribute('content');
+        let authorSpan = document.querySelector('span[itemprop="author"]').querySelector('link[itemprop="name"]');
+        author = authorSpan.getAttribute('content');
+    } catch (e) {
+        console.log("Youtube Scraping error:", e);
+    };
 
     try {
         if (pageTitle) {
