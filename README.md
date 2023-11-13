@@ -19,6 +19,13 @@ Here is a list of the features you can expect with this chrome extension:<br />
  - Estimates and saves read time of article (or watch duration for Youtube videos)<br />
  - Add a **custom note** to your bookmarks/edit MD template<br />
 
+
+
+## Demo
+---
+
+https://github.com/bhulston/bookmark_plugin/assets/79114425/8e93bee0-a54c-4c40-ad45-fff9c1e9b80c
+
 ## User Guide
 ---
 A few tips from me!<br />
@@ -68,12 +75,6 @@ Notice that I include a space, so that a space exists between each bookmark on a
 2. When using the new note section, the title section is automatically used as the document's name.
 3. You can turn off the author and time sections in the options settings, just make sure to also edit your templates appropriately!
 4. I noticed that the Google API is not 100% reliable, so just re-click the extension in chrome to have it try again.
-
-## Demo
----
-
-https://github.com/bhulston/bookmark_plugin/assets/79114425/c324dd91-8ccb-4043-9cb4-35ff7e26e029
-
 
 
 ## Setup
