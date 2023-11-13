@@ -120,7 +120,6 @@ function selectFile() {
         
             // get user search input converted to lowercase
             const { value } = event.target;
-            console.log('Search is', value);
             const searchQuery = value.toLowerCase();
             
             for (const pathElement of pathsFromDOM) {
@@ -132,12 +131,9 @@ function selectFile() {
                 // compare current name to search input
                 if (file.includes(searchQuery)) {
                     // found name matching search, display it
-                    console.log('DISPLAYING!', file);
                     pathElement.style.display = "block";
-                    console.log(pathElement);
                 } else {
                     // no match, don't display name
-                    console.log('BLOCKED');
                     pathElement.style.display = "none";
                 }
             }

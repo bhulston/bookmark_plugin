@@ -88,7 +88,6 @@ const loadVault = async () => {
         console.log('Directory API response', folderData);
 
         const folderStructureContainer = document.getElementById('folder-structure');
-         console.log('Directory test', folderStructureContainer);
 
         const element = createFolderStructure(folderData);
         folderStructureContainer.innerHTML = element;
@@ -190,7 +189,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
     url = tabs[0].url;
     console.log("url=", url);
-    console.log("tab=", tabs[0]);
 
     const type = checkURL(url);
 
@@ -201,7 +199,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         //Parse for video information
         const videoID = getVideoID(url);
         const key = options.googleAPI;
-        console.log(options.googleAPI);
         let url1 = "https://www.googleapis.com/youtube/v3/videos?id=" + videoID + "&key=" + key +"&part=snippet,contentDetails";
         
         //Execute scripts and hit Google API
@@ -270,14 +267,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Function to open the folder popup
 async function openFolderPopup() {
-    console.log('function called')
     folderPopup.style.display = 'block';
 };
 
 // Function to close the folder popup
 function closeFolderPopup() {
     folderPopup.style.display = 'none';
-    console.log('folder popup closed')
 };
 
 function closeSearch() {
@@ -298,7 +293,6 @@ function closeSearch2() {
 
 function displayNewNote() {
     const checked = document.getElementById('openNote');
-    console.log(newNote, newNoteLoc);
     if (checked.checked) {
         newNoteContainer.classList.remove('hidden');
     } else {
@@ -338,7 +332,6 @@ document.addEventListener('click', (event) => {
 document.addEventListener("click", function(event) {
     // Check if the clicked element is a folder
     if (searchResults2.contains(event.target)) {
-        console.log('HEREEEE');
         const newNoteLoc = document.getElementById('newNoteLoc');
         newNoteLoc.value = event.target.getAttribute('data-fullPath');
         closeSearch2();
@@ -347,18 +340,14 @@ document.addEventListener("click", function(event) {
             console.log("folder clicked", event.target);
             const folder = event.target.closest('.folder');
             const childDts = folder.querySelectorAll(':scope > dl > dt');
-            // const childDl = folder.querySelector('dl');
-            // console.log(childDt);
             
             if (folder.querySelector('dt').classList.contains('hidden')) {
-                // childDl.classList.remove('hidden');
                 childDts.forEach((childDt) => {
                     childDt.classList.remove('hidden');
                   });
                 folder.classList.add('collapse-icon');
                 folder.classList.remove('expand-icon');
             } else {
-                // childDl.classList.add('hidden');
                 childDts.forEach((childDt) => {
                     childDt.classList.add('hidden');
                   });
@@ -372,7 +361,6 @@ document.addEventListener("click", function(event) {
     // Check if the clicked element is a file
     if (event.target.classList.contains('file')) {
         // Handle file click
-        console.log("file clicked", event.target);
         const saveFile = document.getElementById('bookmarkValue');
         saveFile.value = event.target.getAttribute('data-fullPath');
         closeFolderPopup();
@@ -389,11 +377,9 @@ searchInput.addEventListener("keyup", (event) => {
 
     // store name elements in array-like object
     const pathsFromDOM = document.querySelectorAll("#bookmarkResults .path");
-    console.log(pathsFromDOM);
 
     // get user search input converted to lowercase
     const { value } = event.target;
-    console.log('Search is', value);
     const searchQuery = value.toLowerCase();
     
     for (const pathElement of pathsFromDOM) {
@@ -405,12 +391,9 @@ searchInput.addEventListener("keyup", (event) => {
         // compare current name to search input
         if (file.includes(searchQuery)) {
             // found name matching search, display it
-            console.log('DISPLAYING!', file);
             pathElement.style.display = "block";
-            console.log(pathElement);
         } else {
             // no match, don't display name
-            console.log('BLOCKED');
             pathElement.style.display = "none";
         }
     }
@@ -422,11 +405,9 @@ searchInput2.addEventListener("keyup", (event) => {
 
     // store name elements in array-like object
     const pathsFromDOM = document.querySelectorAll("#bookmarkResults2 .folder");
-    console.log(pathsFromDOM);
 
     // get user search input converted to lowercase
     const { value } = event.target;
-    console.log('Search is', value);
     const searchQuery = value.toLowerCase();
     
     for (const pathElement of pathsFromDOM) {
@@ -439,12 +420,9 @@ searchInput2.addEventListener("keyup", (event) => {
         // compare current name to search input
         if (file.includes(searchQuery)) {
             // found name matching search, display it
-            console.log('DISPLAYING!', file);
             pathElement.style.display = "block";
-            console.log(pathElement);
         } else {
             // no match, don't display name
-            console.log('BLOCKED');
             pathElement.style.display = "none";
         }
     }

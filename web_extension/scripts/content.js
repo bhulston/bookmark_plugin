@@ -5,7 +5,6 @@ console.log("content script running");
 let type = '';
 try {
     let canonicalElement = document.querySelector('link[rel="canonical"]');
-    console.log(canonicalElement);
     if (canonicalElement.href.includes("youtube")) {
         type = "youtube"
     }
@@ -49,7 +48,6 @@ if (type == 'youtube') {
         const authorElement = document.querySelector('[data-testid="authorName"]'); // For medium articles
 
         if (article) {
-            console.log(article);
             const text = article.textContent;
             const wordMatchRegExp = /[^\s]+/g; // Regular expression
             const words = text.matchAll(wordMatchRegExp);
@@ -57,8 +55,6 @@ if (type == 'youtube') {
             const wordCount = [...words].length;
             const readingTime = Math.round(wordCount / 200);
         
-            console.log("The word count is", wordCount);
-            console.log("The reading time is", readingTime);
             chrome.runtime.sendMessage({ article: true, words: wordCount, time: readingTime }); //Send to background.js
         
         } else {
@@ -69,7 +65,6 @@ if (type == 'youtube') {
         }
 
         if (h1) {
-            console.log(h1);
             const title = h1.textContent; 
 
             chrome.runtime.sendMessage({header: true, title: title});

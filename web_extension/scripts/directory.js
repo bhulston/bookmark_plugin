@@ -43,7 +43,6 @@ function createFolderStructure(data, parentElement) {
             // For each root file
             if (newFolderData.hasOwnProperty(rootFolder)) {
                 // Access the current root folder
-                console.log("Root Folder:", rootFolder);
             
                 // Access the list of subfolders and files for the current root folder
                 const contents = newFolderData[rootFolder];
@@ -93,8 +92,7 @@ function buildSubFolders(data) {
     });
 
     // Now newFolderData contains the desired JSON structure
-    console.log(newFolderData);
-    return newFolderData;
+     return newFolderData;
 };
 
 function buildFromRoot(rootFolder, contents) {
@@ -141,7 +139,6 @@ function generateHtml(map, level = 0) {
 
 // Code to get just the path end nodes, without any folders
 function generateSearch(data, parentElement, option) {
-    console.log("generateSearch function called");
     if (option == "file") {
         data.files.forEach((path) => {
             if (path.endsWith('.md')) {
