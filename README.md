@@ -59,11 +59,11 @@ A YAML template only is included when a new note is created and assigns page pro
 Markdown templates simply get appended to existing files! Here is an example to get you started:
 ```
 
-[${title}](url)
+[${title}](${url})
 ${time}
 ${author}
 ```
-Notice that I include a space, so that a space exists between each bookmark on a page. The "[title](url)" format creates a hyperlink in Obsidian. <br />
+Notice that I include a space, so that a space exists between each bookmark on a page. The " [ title ]|( url ) " format creates a hyperlink in Obsidian. <br />
 <br />
 ##### Example Bookmarks Page:
 <img width="1512" alt="Screenshot 2023-11-09 at 5 18 42 PM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/952bd105-8af4-4679-b342-e09c5c023c89">
