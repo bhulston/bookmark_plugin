@@ -37,7 +37,8 @@ https://github.com/bhulston/bookmark_plugin/assets/79114425/8e93bee0-a54c-4c40-a
 ---
 
 #### Obsidian API
-This extension uses the [Obsidian Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api#) plugin to interact with your Obsidian from your Chrome browser. This means that you need to have this plugin functioning in your preferred vault in order for the chrome extension to work.
+This extension uses the [Obsidian Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api#) plugin to interact with your Obsidian from your Chrome browser. You can find it on the Obsidian community plugins page too.
+<br></br>This means that you need to have this plugin functioning in your preferred vault in order for the chrome extension to work.
 
 A way to test that your Obsidian API is setup properly would be with their [interactive docs](https://coddingtonbear.github.io/obsidian-local-rest-api/).
 
