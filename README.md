@@ -9,11 +9,14 @@ If you have these problems as well, and are an avid user of Obsidian, I think yo
 
 # Table of Contents
 ---
-1. [Introduction](#obsidian-bookmarks)
-2. [Functionality](#functionality)
-3. [Demo](#demo)
-4. [Setup](#setup)
-5. [User Guide](#user-guide)
+1. [Functionality](#functionality)
+2. [Demo](#demo)
+3. [Setup](#setup)
+   - [Obsidian API](#obsidian-api)
+   - [The Options Page](#the-options-page)
+   - [Install It Yourself](#install-it-yourself)
+   - [Install on the Chrome Web Store (Awaiting Approval)](#install-on-the-chrome-web-store---awaiting-approval)
+4. [User Guide](#user-guide)
 
 
 ## Functionality
@@ -36,24 +39,26 @@ https://github.com/bhulston/bookmark_plugin/assets/79114425/8e93bee0-a54c-4c40-a
 ## Setup
 ---
 
-#### Obsidian API
+### Obsidian API
 This extension uses the [Obsidian Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api#) plugin to interact with your Obsidian from your Chrome browser. You can find it on the Obsidian community plugins page too.
 <br></br>This means that you need to have this plugin functioning in your preferred vault in order for the chrome extension to work.
 
 A way to test that your Obsidian API is setup properly would be with their [interactive docs](https://coddingtonbear.github.io/obsidian-local-rest-api/).
 
-#### The Options Page
+### The Options Page
 
-Once downloaded, be sure to set your options and templates, and save settings to get the extension working in Chrome.<br></br>
-<img width="351" alt="Screenshot 2023-11-14 at 12 07 22 PM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/48edd88b-5433-4147-b9cd-91baddc2f87e">
-<br> </br>Open settings by clicking the cog in the extension popup, and add your Obsidian API key and templates(examples in the [User Guide](#user-guide) section). <br></br>
+Once downloaded, be sure to set your options and templates
 
-<img width="727" alt="Screenshot 2023-11-14 at 12 06 58 PM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/808b27fe-5a49-4e85-9d5a-d6d844294195">
+Add your Obsidian API key and templates(examples in the [User Guide](#user-guide) section), and save settings to get the extension working in Chrome. <br></br>
+<img width="289" alt="Screenshot 2023-11-14 at 12 46 39 PM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/8f475892-486f-4388-8a6c-e5f64f68232a">
+
+<br> </br> You are also be able to check if the API key is working from this page. <br> </br>
+
+<img width="701" alt="Screenshot 2023-11-14 at 12 45 46 PM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/d25b934c-41f7-48ae-a25f-87a91a3e99a1">
 
 
 
-
-#### Install It Yourself
+### Install It Yourself
 ##### 1. Download the Repo
 <img width="1030" alt="Screenshot 2023-11-14 at 11 56 12 AM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/69defc6f-83ee-481e-9098-d972d857d1aa">
 <br> </br> Easiest way is to download the zip file, but you could git clone the repo as well
@@ -69,6 +74,7 @@ Just double click the zip file
 <img width="798" alt="Screenshot 2023-11-14 at 12 05 05 PM" src="https://github.com/bhulston/bookmark_plugin/assets/79114425/2198c6f9-f625-4d21-ba5d-9ecb75ffec4d">
 
 ##### 5. Leave Development Mode and Start Using!
+And you are done! <br> </br>
 
 #### Install on the Chrome Web Store - Awaiting Approval
 [link-chrome]: https://chrome.google.com/webstore/detail/testname/xxx 'Version published on Chrome Web Store'
