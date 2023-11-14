@@ -16,7 +16,7 @@ If you have these problems as well, and are an avid user of Obsidian, I think yo
    - [The Options Page](#the-options-page)
    - [Install It Yourself](#install-it-yourself)
    - [Install on the Chrome Web Store (Awaiting Approval)](#install-on-the-chrome-web-store---awaiting-approval)
-4. [User Guide](#user-guide)
+4. [User Guide + Templates](#user-guide)
 
 
 ## Functionality
