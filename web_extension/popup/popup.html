@@ -33,23 +33,7 @@
             <p id="author"><strong id="info4" class="section">Page Author:</strong> <input type="text" id="value4" value=""> </p>
             <p id="time"><strong id="info3" class="section">Reading Time:</strong> <input type="text" id="value3" value=""> </p>
 
-            <div class="slider-container" id="slider-container">
-                <label for="openNote" class="switch">
-                    <strong class="label-text">
-                        Create New Note?
-                    </strong>
-                    <input type="checkbox" id="openNote" />
-                    <div class="slider round"></div>
-                </label>
-            </div>
-
-            <p id = "newNoteContainer" class = "hidden">
-                <strong id="newNote" class="section">New Note Location:</strong>
-                <input type="text" id="newNoteLoc" placeholder="Type to Search" value=""> 
-                <ul id="bookmarkResults2" class = "hidden">
-                    <!-- Search results html will be appended here -->
-                </ul>
-            </p>
+            
             
             <div class="slider-container2" id="slider-container2">
                 <label for="customTemplate" class="switch">
@@ -68,12 +52,33 @@
                 
             </p>
 
+            <div class="slider-container" id="slider-container">
+                <label for="openNote" class="switch">
+                    <strong class="label-text">
+                        Create New Note?
+                    </strong>
+                    <input type="checkbox" id="openNote" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+
+            <p id = "newNoteContainer" class = "hidden">
+                <strong id="newNote" class="section">New Note Location:</strong>
+                <input type="text" id="newNoteLoc" placeholder="Type to Search" value=""> 
+                <strong class="section">New Note Title:</strong>
+                <input type="text" id="newNoteTitle" placeholder="Not Found" value=""> 
+                <ul id="bookmarkResults2" class = "hidden">
+                    <!-- Search results html will be appended here -->
+                </ul>
+                
+            </p>
             
 
             <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="apiStatus"></span>
 
             <div class="btn-container">
                 <button id="refreshVault" class="btn">Refresh Vault</button>
+                <button id="dailyNote" class="btn" style = "z-index: 9999;">Send to Daily Note</button>
                 <button id="sendButton" class="btn" style = "z-index: 9999;">Save to Obsidian</button>
             </div>
             

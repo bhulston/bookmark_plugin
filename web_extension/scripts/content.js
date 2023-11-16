@@ -1,18 +1,8 @@
 console.log("content script running");
 //Content script runs a script that gets the relevant information from the webpage DOM.
-
 {
-let type = '';
-try {
-    let canonicalElement = document.querySelector('link[rel="canonical"]');
-    if (canonicalElement.href.includes("youtube")) {
-        type = "youtube"
-    }
-} catch (e) {
-    console.log("error:", e);
-}
 
-if (type == 'youtube') { 
+if (window.location.href.includes("youtube.com")) { 
     let pageTitle = '';
     let author = '';
     //youtube scraping for title and channel name, might not be 100% reliable
@@ -20,24 +10,25 @@ if (type == 'youtube') {
         pageTitle = document.querySelector('meta[name="title"]').getAttribute('content');
         let authorSpan = document.querySelector('span[itemprop="author"]').querySelector('link[itemprop="name"]');
         author = authorSpan.getAttribute('content');
-    } catch (e) {
-        console.log("Youtube Scraping error:", e);
+    } catch (er) {   
+        console.log("Youtube page was opent too long, try refreshing the page");
+        try {
+            pageTitle = document.querySelector('title').innerText;
+
+            // At the very least, we can get the youtube page title from the <head>. 
+
+        } catch(e) {
+            console.log("Youtube Scraping error:", e);
+        }
     };
 
-    try {
-        if (pageTitle) {
+    if (pageTitle) {
             chrome.runtime.sendMessage({header: true, title: pageTitle});
-        };
-    } catch(e) {
-        console.log("Youtube Scraping error:", e);
     };
+    
 
-    try {
-        if (author) {
+    if (author) {
             chrome.runtime.sendMessage({author: true, authorID: author});
-        };
-    } catch(e) {
-        console.log("Youtube Scraping error:", e);
     };
 
 } else {
@@ -59,8 +50,6 @@ if (type == 'youtube') {
         
         } else {
             console.log("No article in document found");
-            const wordCount = "N/A";
-            const readingTime = "N/A"; 
             chrome.runtime.sendMessage({ article: false }); //Send to background.js
         }
 
@@ -70,7 +59,6 @@ if (type == 'youtube') {
             chrome.runtime.sendMessage({header: true, title: title});
         } else {
             console.log("No header in document found");
-            const title = "Example Title"
 
             chrome.runtime.sendMessage({header: false});
         }

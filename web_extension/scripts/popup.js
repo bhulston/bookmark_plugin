@@ -10,11 +10,13 @@ import { createFolderStructure, generateSearch } from './directory.js';
 let elmTitle = document.getElementById("title");
 let elmInfo3 = document.getElementById("info3");
 let elmInfo4 = document.getElementById("info4");
+let newNoteTitle = document.getElementById("newNoteTitle");
 
 let elmDuration = document.getElementById("value3");
 let elmAuthor = document.getElementById("value4");
 
 const sendObsidian = document.getElementById("sendButton");
+const sendDaily = document.getElementById("dailyNote");
 const refreshVault = document.getElementById("refreshVault");
 const slider = document.getElementById('slider-container');
 const slider2 = document.getElementById('slider-container2');
@@ -81,11 +83,13 @@ const initOptionsCache = async () => {
   }
 };
 
+// Initialize cache
+initOptionsCache();
+
 const loadVault = async () => {
     getDir(options.apiKey).then((folderData) => {
         generateSearch(folderData, searchResults, 'file');
         generateSearch(folderData, searchResults2, 'folder');
-        console.log('Directory API response', folderData);
 
         const folderStructureContainer = document.getElementById('folder-structure');
 
@@ -107,9 +111,6 @@ function getProtocol() {
     }
 };
 
-// Initialize cache
-initOptionsCache();
-
 chrome.storage.onChanged.addListener((changes, namespace) => {
     // Update options on storage changes
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
@@ -122,6 +123,47 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   });
 
 //     Buttons       //
+
+sendDaily.addEventListener('click', async function ()  {
+    initOptionsCache();
+    console.log("Send to Obsidian process started...");
+    // Build our Obsidian Doc
+    const custom = document.getElementById('customTemplate').checked;
+    const create = document.getElementById("openNote");
+    const docVars = {
+        title: elmTitle.value,
+        time: elmDuration.value,
+        author: elmAuthor.value,
+        url: `${url}`
+        };
+    const hideAuthor = document.getElementById('author').checked;
+    const hideTime = document.getElementById('time').checked;
+
+    if (hideAuthor) {
+        delete docVars.author;
+    }
+    if (hideTime) {
+        delete docVars.time;
+    }
+
+    let md = '';
+    if (custom) {
+        md = write_doc(mdTemplate.value, docVars);
+    } else {
+        md = write_doc(options.md, docVars);
+    }
+
+    const APIurl = getProtocol() + '/periodic/daily/';
+
+    const yaml = write_doc(options.yaml, docVars);
+
+    const newNotePath = document.getElementById("newNoteLoc").value;
+    const optionURL = getProtocol() + '/vault/' + newNotePath + newNoteTitle.value + '.md';
+    console.log("Sending to daily note");
+    const check = await postObsidian(APIurl, options.apiKey, 'text', md, create.checked, optionURL, yaml);
+    const status = document.getElementById("apiStatus");
+    handleApiResponse(check, status);
+});
 
 sendObsidian.addEventListener('click', async function () {
     console.log("Send to Obsidian process started...");
@@ -152,18 +194,13 @@ sendObsidian.addEventListener('click', async function () {
     }
     
     const yaml = write_doc(options.yaml, docVars);
-        // get just the markdown back
-    // const yaml = write_doc(elmTitle.value, elmDuration.value, url, "this is a cool article!!!", false, "yaml", options.yaml, "empty");
-        // Get yaml for a new note (Can include Markdown)
-    console.log('Bookmarks MD and YAML built');
 
     const APIpath = document.getElementById("bookmarkValue").value;
     const APIurl = getProtocol() + '/vault/' + APIpath;
     
     const newNotePath = document.getElementById("newNoteLoc").value;
-    const optionURL = getProtocol() + '/vault/' + newNotePath + elmTitle.value + '.md';
+    const optionURL = getProtocol() + '/vault/' + newNotePath + newNoteTitle.value + '.md';
     const check = await postObsidian(APIurl, options.apiKey, 'text', md, create.checked, optionURL, yaml);
-    console.log("Obsidian API response:", check);
 
     const status = document.getElementById("apiStatus");
     handleApiResponse(check, status);
@@ -184,6 +221,7 @@ refreshVault.addEventListener('click', async function () {
 // Query GoogleAPI for Youtube video information or activate content script if not from youtube //
     //runs on popup open
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    console.log("Running content script/youtube api");
     //Set URL
     initOptionsCache();
 
@@ -203,20 +241,19 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         
         //Execute scripts and hit Google API
         const data = fetch(url1).then(function(response) {
-            console.log("response =", response);
             if (!response.ok) {
                 throw new Error('Network response was not ok'); //hitting here:/
             }
             return response.json(); // Assuming the response is in JSON format
         }).then(function(data){
-            handleSuccess(data, elmTitle, elmDuration, elmAuthor)
+            handleSuccess(data, elmTitle, elmDuration, elmAuthor, newNoteTitle)
         }).catch(function(error) {
             console.log('Google API Error:', error);
             // Google API failed, so let's manually get title. Getting the watch time requires too much work without the api
             injectContentScript(tabs[0]);
         });
     } else {
-    // Need to use a content script to roead DOM contained information (word count and reading time)
+    // Need to use a content script to read DOM contained information (word count and reading time)
         injectContentScript(tabs[0]); 
     }
   });
@@ -229,7 +266,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const readingTime = message.readingTime;
       elmDuration.value = `${readingTime}`;
 
-      console.log("article info extracted");
 
     } if ( message.readSuccess = false ) {
 
@@ -237,7 +273,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const readingTime = message.readingTime;
       elmDuration.value = readingTime;
 
-      console.log("info not extracted");
     }
     sendResponse();
 });
@@ -246,9 +281,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     //Act when content script reads relevant info
     if ( message.headSuccess == true ) {
       elmTitle.value = message.title;
-
-    } if ( message.headSuccess = false ) {
-      elmTitle.value = message.title;
+      newNoteTitle.value = message.title;
     }
     sendResponse();
 });
@@ -256,7 +289,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     //Act when content script reads relevant info
     if ( message.authorSuccess ) {
-      console.log("author:", message.authorSuccess, message.authorID);
       elmAuthor.value = message.authorID;
     }
     sendResponse();
@@ -337,7 +369,6 @@ document.addEventListener("click", function(event) {
         closeSearch2();
     } else {
         if (event.target.classList.contains('folder')) {
-            console.log("folder clicked", event.target);
             const folder = event.target.closest('.folder');
             const childDts = folder.querySelectorAll(':scope > dl > dt');
             

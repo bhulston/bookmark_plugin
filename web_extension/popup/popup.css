@@ -137,6 +137,7 @@ textarea::placeholder {
     opacity: 0.9;
     transition: 0.4s;
     text-decoration: none;
+    margin-left: 10px;
   }
   
   .btn:hover {

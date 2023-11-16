@@ -24,7 +24,6 @@ async function getObsidian(url, key, accept) {
           'Authorization': 'Bearer ' + key
         }
       });
-      console.log("API Check", response);
       return response;
     } catch (e) {
         console.log('ERROR', e);
@@ -35,7 +34,6 @@ async function getObsidian(url, key, accept) {
 async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
     // first check if it exists, if it does, we append with post, or we do a put
     const get_response = getObsidian(url, key, accept);
-    console.log('Document exists:', get_response);
     /*
     Every bookmark send will always have a post and a put
         The post is to append to the bookmarks tab
@@ -68,7 +66,6 @@ async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
             body: requestData
             });
             
-            console.log("API Check", response);
             response1 = true;
         } catch (e) {
             console.log('ERROR', e);
@@ -92,7 +89,6 @@ async function postObsidian(url, key, accept, md, option, optionURL, yaml) {
             body: requestData
             });
             
-            console.log("API Check", response);
             response2 = true;
         } catch (e) {
             console.log('ERROR', e);
@@ -115,7 +111,6 @@ async function collectDir(data, folders, key, url) {
         if (isFolder) {
             folders.files.push(cleanURI(uri)); // push folder names
             try {
-                console.log("Querying files contained in", cleanURI(uri));
                 const response = await fetch(uri, {
                     method: 'GET',
                     headers: {
@@ -154,7 +149,6 @@ async function getDir(key) {
             }
         });
         
-        console.log("API Check in getDir", response);
         const responseData = await response.json();
         folders = await collectDir(responseData, folders, key, root);
     } catch (e) {

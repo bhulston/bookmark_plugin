@@ -29,12 +29,12 @@ function cleanDuration (int) {
 };
 
 const injectContentScript = (tab) => {
-const { id, url } = tab;
-chrome.scripting.executeScript({
-    target: { tabId: id, allFrames: true },
-    files: ['./scripts/content.js']
-});
-console.log(`Loading: ${url}`);
+  const { id, url } = tab;
+  chrome.scripting.executeScript({
+      target: { tabId: id, allFrames: false },
+      files: ['./scripts/content.js']
+  });
+  console.log(`Loading: ${url}`);
 };
 
 const getVideoID = (url) => {
@@ -49,17 +49,17 @@ const getVideoID = (url) => {
     }
 };
 
-const handleSuccess = (data, elmTitle, elmDuration, elmVideo) => {
+const handleSuccess = (data, elmTitle, elmDuration, elmVideo, newNoteTitle) => {
     if (data.items.length > 0) {
       console.log("output:", data.items[0]); // contentDetails.duration //snippet.title //snippet.channelTitle //snippet.description
     //   console.log("Video query output:", output);
       const duration = data.items[0].contentDetails.duration; //Must be ISO parsed
       const title = data.items[0].snippet.title;
       const channel = data.items[0].snippet.channelTitle;
-      const description = data.items[0].snippet.description;   
 
       console.log(duration);
       elmTitle.value = title;
+      newNoteTitle.value = title;
       elmVideo.value = channel;
       elmDuration.value = ISO8601DurationToSeconds(duration);
     }
@@ -69,11 +69,13 @@ const checkURL = (url) => {
     const pattern = /youtube/i;
 
     if (pattern.test(url)) {
-        return "youtube";
         console.log("The URL is from YouTube.com");
+        return "youtube";
+        
     } else {
-        return "article";
         console.log("The URL is not from YouTube.com");
+        return "article";
+        
     }
 };
 
