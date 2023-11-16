@@ -109,6 +109,8 @@ A YAML template only is included when a new note is created and assigns page pro
 ---
 ```
 
+Note that you could add an additional note below the final '---' to add text after the yaml properties. <br />
+
 Markdown templates simply get appended to existing files! Here is an example to get you started:
 ```
 
