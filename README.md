@@ -33,8 +33,7 @@ Here is a list of the features you can expect with this chrome extension:<br />
 ## Demo
 ---
 
-https://github.com/bhulston/bookmark_plugin/assets/79114425/8e93bee0-a54c-4c40-ad45-fff9c1e9b80c
-
+https://github.com/bhulston/bookmark_plugin/assets/79114425/76eb3989-ed17-40eb-be16-a2de25ba8706
 
 ## Setup
 ---
