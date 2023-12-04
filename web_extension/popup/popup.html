@@ -62,16 +62,17 @@
                 </label>
             </div>
 
-            <p id = "newNoteContainer" class = "hidden">
+            <div id = "newNoteContainer" class = "hidden">
                 <strong id="newNote" class="section">New Note Location:</strong>
                 <input type="text" id="newNoteLoc" placeholder="Type to Search" value=""> 
                 <strong class="section">New Note Title:</strong>
                 <input type="text" id="newNoteTitle" placeholder="Not Found" value=""> 
-                <ul id="bookmarkResults2" class = "hidden">
-                    <!-- Search results html will be appended here -->
-                </ul>
-                
-            </p>
+                <div class = "resultsContainer2">
+                    <ul id="bookmarkResults2" class = "hidden">
+                        <!-- Search results html will be appended here -->
+                    </ul>
+                </div>    
+            </div>
             
 
             <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="apiStatus"></span>

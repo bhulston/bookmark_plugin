@@ -344,7 +344,10 @@ function displayTemplates() {
 
 // Add a click event listener to the button
 openFolderButton.addEventListener('click', openFolderPopup);
-slider.addEventListener('click', displayNewNote);
+slider.addEventListener('click', function(event) {
+    displayNewNote();
+    newNoteTitle.value = elmTitle.value;
+});
 slider2.addEventListener('click', displayTemplates);
 
 // Close the popup when clicking outside of it:
