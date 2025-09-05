@@ -28,13 +28,25 @@ function cleanDuration (int) {
   }
 };
 
-const injectContentScript = (tab) => {
+const injectContentScript = async (tab) => {
   const { id, url } = tab;
-  chrome.scripting.executeScript({
-      target: { tabId: id, allFrames: false },
-      files: ['./scripts/content.js']
+
+  // Inject Readability (bypasses import need in content script)
+  await chrome.scripting.executeScript({
+    target: { tabId: id, allFrames: false },
+    files: ['scripts/Readability.js'],
+    world: 'MAIN'  // Optional, but helpful for global scoping issues
   });
-  console.log(`Loading: ${url}`);
+
+  await chrome.scripting.executeScript({
+    target: { tabId: id, allFrames: false },
+    files: ['scripts/content.js']
+  });
+
+  // Send message to trigger scraping logic
+  chrome.tabs.sendMessage(id, { action: 'scrape' });
+
+  console.log(`Injected content script for scraping on: ${url}`);
 };
 
 const getVideoID = (url) => {

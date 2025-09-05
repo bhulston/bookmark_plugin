@@ -1,3 +1,5 @@
+// A set of functions to help pull the folder hierarchy out of Obsidian, for displaying
+
 function createFolderStructure(data, parentElement) {
     // Sort the files
     data.files.sort((a, b) => {

@@ -10,6 +10,12 @@
     "host_permissions": [
         "<all_urls>"
     ],
+    "web_accessible_resources": [
+      {
+        "resources": ["scripts/Readability.js"],
+        "matches": ["<all_urls>"]
+      }
+    ],
     "options_page": "options/options.html",
       "background": {
         "service_worker": "background.js"

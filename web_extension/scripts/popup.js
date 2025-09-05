@@ -101,6 +101,8 @@ const loadVault = async () => {
     });
 };
 
+//TODO: Create error handling and messaging for when a vault is not connected
+
 function getProtocol() {
     if (options.customPort) {
         const protocol = options.port;
@@ -246,6 +248,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             }
             return response.json(); // Assuming the response is in JSON format
         }).then(function(data){
+            console.log("Google API data:", data);
             handleSuccess(data, elmTitle, elmDuration, elmAuthor, newNoteTitle)
         }).catch(function(error) {
             console.log('Google API Error:', error);
@@ -293,6 +296,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     sendResponse();
 });
+
+//TODO: Error message when scrapers failed in the UI. -- Scraper Error Handlind --
 
 
 //        Folder structure      //
