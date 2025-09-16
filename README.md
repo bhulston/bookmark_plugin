@@ -83,7 +83,7 @@ And you are done! <br> </br>
 A few tips from me!<br />
 
 ### YAML and MD Templates
-Both of these can be edited from the options page by clicking the cog in the extension.
+Both of these can be edited from the options page by clicking the cog in the extension. 
 When making templates, there are a few built in fields that you can include:
 
 1. ${url}
@@ -97,13 +97,11 @@ A YAML template only is included when a new note is created and assigns page pro
 
 ```
 ---
-{
-    "title": "${title}",
-    "time": "${time}",
-    "author": "${author}",
-    "url": "${url}",
-    "read": false,
-}
+title: ${title}
+time: ${time}
+author: ${author}
+url: ${url}
+read: false
 ---
 ```
 
@@ -113,7 +111,7 @@ Markdown templates simply get appended to existing files! Here is an example to 
 ```
 
 [${title}](${url})
-${time}
+${time} minutes
 ${author}
 ```
 Notice that I include a space, so that a space exists between each bookmark on a page. The " [ title ]|( url ) " format creates a hyperlink in Obsidian. <br />
