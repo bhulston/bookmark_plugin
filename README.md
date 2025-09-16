@@ -72,8 +72,8 @@ Just double click the zip file
 ##### 5. Leave Development Mode and Start Using!
 And you are done! <br> </br>
 
-#### Install on the Chrome Web Store - Awaiting Approval
-[link-chrome]: https://chrome.google.com/webstore/detail/testname/xxx 'Version published on Chrome Web Store'
+#### Install on the Chrome Web Store
+[link-chrome]: https://chromewebstore.google.com/detail/obisidan-digital-bookmark/glondkomnkhndkajgnapjgfdkelgeiph?authuser=1&hl=en 'Version published on Chrome Web Store'
 
 [<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/chrome/chrome.svg" width="48" alt="Chrome" valign="middle">][link-chrome] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/hlepfoohegkhhmjieoechaddaejaokhf.svg?label=%20">][link-chrome] and other Chromium browsers
 
